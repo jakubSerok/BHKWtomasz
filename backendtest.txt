@@ -1,0 +1,23 @@
+import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+function App() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    // Fetch request to the backend
+    fetch("http://localhost:3001/")
+      .then((response) => response.text()) // Parsing the response as text
+      .then((data) => setMessage(data)) // Setting the response to state
+      .catch((error) => console.error("Error connecting to backend:", error));
+  }, []);
+
+  return (
+    <div>
+      <h1>Frontend</h1>
+      <p>{message}</p> {/* Displaying the message from the backend */}
+    </div>
+  );
+}
+
+export default App;
