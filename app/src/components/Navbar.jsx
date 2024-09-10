@@ -15,25 +15,25 @@ const Navbar = () => {
         </div>
 
         <ul className="flex items-center justify-between px-4 h-[70%]">
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/shop">sklep</a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/">home</a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/blogs">blogi</a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/about">o nas </a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/kontakt">kontakt</a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/oferta">oferta</a>
           </li>
-          <li className="md:text-[20px] sm:text-[15px] text-black bold uppercase">
+          <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/rozwiazania">nasze rozwiazania</a>
           </li>
         </ul>
