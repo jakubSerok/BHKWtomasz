@@ -10,8 +10,8 @@ const AboutQA = () => {
       <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
         <div class="py-5">
           <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-              <span> What is a SAAS platform?</span>
+            <summary class="flex justify-around items-center font-medium cursor-pointer list-none text-white bg-[#031124] rounded-3xl py-2">
+              <span> Jakie usługi świadczy BHKW Anlagenservice GbR? </span>
               <span class="transition group-open:rotate-180">
                 <svg
                   fill="none"
@@ -28,9 +28,83 @@ const AboutQA = () => {
                 </svg>
               </span>
             </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-              SAAS platform is a cloud-based software service that allows users
-              to access and use a variety of tools and functionality.
+            <p class="px-4 text-black mt-3 group-open:animate-fadeIn">
+              Jakis tekst{" "}
+            </p>
+          </details>
+        </div>
+        <div class="py-5">
+          <details class="group">
+            <summary class="flex justify-around items-center font-medium cursor-pointer list-none text-white bg-[#031124] rounded-3xl py-2">
+              <span> Jakie usługi świadczy BHKW Anlagenservice GbR? </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="px-4 text-black mt-3 group-open:animate-fadeIn">
+              Jakis tekst{" "}
+            </p>
+          </details>
+        </div>
+        <div class="py-5">
+          <details class="group">
+            <summary class="flex justify-around items-center font-medium cursor-pointer list-none text-white bg-[#031124] rounded-3xl py-2">
+              <span> Jakie usługi świadczy BHKW Anlagenservice GbR? </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="px-4 text-black mt-3 group-open:animate-fadeIn">
+              Jakis tekst{" "}
+            </p>
+          </details>
+        </div>
+        <div class="py-5">
+          <details class="group">
+            <summary class="flex justify-around items-center font-medium cursor-pointer list-none text-white bg-[#031124] rounded-3xl py-2">
+              <span> Jakie usługi świadczy BHKW Anlagenservice GbR? </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="px-4 text-black mt-3 group-open:animate-fadeIn">
+              Jakis tekst{" "}
             </p>
           </details>
         </div>

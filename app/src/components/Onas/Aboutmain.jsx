@@ -8,7 +8,7 @@ const Aboutmain = () => {
         O nas
       </p>
       <div className="flex md:flex-row flex-col gap-5">
-        <img src={img} alt="" className="md:w-[50%]" />
+        <img src={img} alt="" className="md:w-[50%] rounded-3xl" />
         <div className="flex flex-col gap-4">
           <p className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
             Nasz program sam wyśle przypomninie od nadchodzącym sweriwse, dieki

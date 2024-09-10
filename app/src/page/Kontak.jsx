@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Kontakmain from "../components/Kontakt/Kontakmain";
 
 const Kontakt = () => {
   return (
-    <div>Kontakt</div>
-  )
-}
+    <div>
+      <Kontakmain />
+    </div>
+  );
+};
 
-export default Kontakt
+export default Kontakt;
