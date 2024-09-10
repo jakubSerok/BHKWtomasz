@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import OfertaMain from "../components/Oferta/OfertaMain";
 
 const Oferta = () => {
   return (
-    <div>Oferta</div>
-  )
-}
+    <div>
+      <OfertaMain />
+    </div>
+  );
+};
 
-export default Oferta
+export default Oferta;

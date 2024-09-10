@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Aboutmain from "../components/Onas/Aboutmain";
+import AboutQA from "../components/Onas/AboutQA";
 
 const About = () => {
   return (
-    <div>About</div>
-  )
-}
+    <div>
+      <Aboutmain />
+      <AboutQA />
+    </div>
+  );
+};
 
-export default About
+export default About;
