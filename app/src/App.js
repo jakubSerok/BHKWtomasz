@@ -1,13 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./page/Home";
-import Shop from "./page/Shop";
-import Blogs from "./page/Blogs";
-import About from "./page/About";
-import Kontakt from "./page/Kontak";
-import Oferta from "./page/Oferta";
-import Rozwiazania from "./page/Rozwiazania";
+import Home from "./page/website/Home";
+import Shop from "./page/website/Shop";
+import Blogs from "./page/website/Blogs";
+import About from "./page/website/About";
+import Kontakt from "./page/website/Kontak";
+import Oferta from "./page/website/Oferta";
+import Rozwiazania from "./page/website/Rozwiazania";
 import Footer from "./components/Footer";
+
+import Admin from "./page/admin/Admin";
 
 function App() {
   return (
@@ -22,8 +24,9 @@ function App() {
           <Route path="/kontakt" element={<Kontakt />} />
           <Route path="/oferta" element={<Oferta />} />
           <Route path="/rozwiazania" element={<Rozwiazania />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );

@@ -1,48 +1,20 @@
+const port = 3001;
 const express = require("express");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri =
-  "mongodb+srv://admin:Nimda209$@cluster0.ku8q9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
-async function run() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-
-    // Start the Express.js server
-    app.listen(3001, () => {
-      console.log("Server is running on port 3001");
-    });
-  } catch (err) {
-    console.error(err);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-
-run().catch(console.dir);
+//Database Connection with MonoDB
+mongoose.connect(
+  "mongodb+srv://admin:Nimda209$@cluster0.ku8q9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+);
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
@@ -117,7 +89,7 @@ app.post("/addproduct", async (req, res) => {
     id: id,
     name: req.body.name,
     image: req.body.image,
-    price: req.body.new,
+    price: req.body.price, // Corrected this line
   });
   await product.save();
   res.json({
@@ -139,4 +111,127 @@ app.post("/removeproduct", async (req, res) => {
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
   res.send(products);
+});
+
+//Shema creating for user model
+
+const Users = mongoose.model("Users", {
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  cartData: {
+    type: Object,
+  },
+  data: {
+    type: Date,
+    default: Date.now,
+  },
+  accountType: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+  },
+});
+
+//Creating Endpoint for regisaring user
+app.post("/signup", async (req, res) => {
+  try {
+    // Check if a user already exists with the same email
+    let check = await Users.findOne({ email: req.body.email });
+    if (check) {
+      return res.status(400).json({
+        success: false,
+        errors: "User already exists with this email address",
+      });
+    }
+
+    // Initialize an empty cart
+    let cart = {};
+    for (let i = 0; i < 300; i++) {
+      cart[i] = 0;
+    }
+
+    // Hash the password before storing it in the database
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // Create the new user with hashed password
+    const user = new Users({
+      name: req.body.username,
+      email: req.body.email,
+      password: hashedPassword, // Store hashed password
+      cartData: cart,
+    });
+
+    // Save the user to the database
+    await user.save();
+
+    // Create JWT payload
+    const data = {
+      user: {
+        id: user._id, // Use _id as the unique identifier
+      },
+    };
+
+    // Generate a JWT token
+    const token = jwt.sign(data, "tomasz_bhkw", { expiresIn: "1h" }); // Set token expiration to 1 hour
+
+    // Respond with success and the token
+    res.json({ success: true, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    // Find the user by email
+    let user = await Users.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, errors: "Wrong email address" });
+    }
+
+    // Compare the plain password with the hashed password
+    const passCompare = await bcrypt.compare(req.body.password, user.password);
+    if (!passCompare) {
+      return res.status(400).json({ success: false, errors: "Wrong password" });
+    }
+
+    // Create JWT payload
+    const data = {
+      user: {
+        id: user._id,
+      },
+    };
+
+    // Generate a JWT token
+    const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
+
+    // Respond with success and the token
+    res.json({ success: true, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
+
+// Coonection test
+app.listen(port, (error) => {
+  if (!error) {
+    console.log("Server Runninf on POrt " + port);
+  } else {
+    console.log("Error : " + error);
+  }
 });

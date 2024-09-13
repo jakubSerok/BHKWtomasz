@@ -1,5 +1,5 @@
 import React from "react";
-import Kontakmain from "../components/Kontakt/Kontakmain";
+import Kontakmain from "../../components/Kontakt/Kontakmain";
 
 const Kontakt = () => {
   return (
