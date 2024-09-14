@@ -217,7 +217,7 @@ app.post("/login", async (req, res) => {
     };
 
     // Generate a JWT token
-    const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
+    const token = jwt.sign(data, "tomasz_bhkw", { expiresIn: "1h" });
 
     // Respond with success and the token
     res.json({ success: true, token });
@@ -226,6 +226,63 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ success: false, errors: "Server error" });
   }
 });
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    let user = await Users.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ success: false, errors: "Invalid email" });
+    }
+
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ success: false, errors: "Invalid password" });
+    }
+
+    const data = {
+      user: {
+        id: user.id,
+        accountType: user.accountType, // Include account type in token data
+      },
+    };
+
+    // Generate JWT token
+    const token = jwt.sign(data, "tomasz_bhkw");
+    res.json({ success: true, token, accountType: user.accountType }); // Send account type in response
+  } catch (error) {
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
+
+// Admin Authentication Middleware
+const isAdmin = (req, res, next) => {
+  if (req.user.accountType !== "admin") {
+    return res.status(403).json({ errors: "Access denied, admin only" });
+  }
+  next();
+};
+
+// Token Middleware to Fetch User
+const fetchUser = (req, res, next) => {
+  const token = req.header("auth-token");
+  if (!token) {
+    return res
+      .status(401)
+      .json({ errors: "Please authenticate using a valid token" });
+  }
+
+  try {
+    const data = jwt.verify(token, "tomasz_bhkw");
+    req.user = data.user;
+    next();
+  } catch (error) {
+    res.status(401).json({ errors: "Please authenticate using a valid token" });
+  }
+};
 
 // Coonection test
 app.listen(port, (error) => {
