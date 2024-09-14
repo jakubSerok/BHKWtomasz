@@ -22,7 +22,7 @@ function App() {
   return (
     <div>
       {/* Only render Navbar and Footer if not on the /admin route */}
-      {location.pathname !== "/admin" && <Navbar />}
+      {location.pathname.startsWith("/admin") === false && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -33,11 +33,12 @@ function App() {
         <Route path="/oferta" element={<Oferta />} />
         <Route path="/rozwiazania" element={<Rozwiazania />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
+        {/* Nested routes under /admin */}
+        <Route path="/admin/*" element={<Admin />} />
       </Routes>
 
       {/* Only render Footer if not on the /admin route */}
-      {location.pathname !== "/admin" && <Footer />}
+      {location.pathname.startsWith("/admin") === false && <Footer />}
     </div>
   );
 }
