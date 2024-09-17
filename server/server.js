@@ -191,41 +191,6 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ success: false, errors: "Server error" });
   }
 });
-
-app.post("/login", async (req, res) => {
-  try {
-    // Find the user by email
-    let user = await Users.findOne({ email: req.body.email });
-
-    if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, errors: "Wrong email address" });
-    }
-
-    // Compare the plain password with the hashed password
-    const passCompare = await bcrypt.compare(req.body.password, user.password);
-    if (!passCompare) {
-      return res.status(400).json({ success: false, errors: "Wrong password" });
-    }
-
-    // Create JWT payload
-    const data = {
-      user: {
-        id: user._id,
-      },
-    };
-
-    // Generate a JWT token
-    const token = jwt.sign(data, "tomasz_bhkw", { expiresIn: "1h" });
-
-    // Respond with success and the token
-    res.json({ success: true, token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, errors: "Server error" });
-  }
-});
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -284,6 +249,35 @@ const fetchUser = (req, res, next) => {
   }
 };
 
+//creating endpoint for add to cart
+app.post("/addtocart", fetchUser, async (req, res) => {
+  console.log(req.body, req.user);
+  let userData = await Users.findOne({ _id: req.user.id });
+  userData.cartData[req.body.itemId] += 1;
+
+  await Users.findOneAndUpdate(
+    { _id: req.user.id },
+    { cartData: userData.cartData }
+  );
+});
+
+app.post("/removefromcart", fetchUser, async (req, res) => {
+  console.log(req.body, req.user);
+  let userData = await Users.findOne({ _id: req.user.id });
+  if (userData.cartData[req.body.itemId] > 0) {
+    userData.cartData[req.body.itemId] -= 1;
+  }
+
+  await Users.findOneAndUpdate(
+    { _id: req.user.id },
+    { cartData: userData.cartData }
+  );
+});
+
+app.post("/getcart", fetchUser, async (req, res) => {
+  let userData = await Users.findOne({ _id: req.user.id });
+  res.json(userData.cartData);
+});
 // Coonection test
 app.listen(port, (error) => {
   if (!error) {

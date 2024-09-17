@@ -15,6 +15,7 @@ import Rozwiazania from "./page/website/Rozwiazania";
 import Footer from "./components/Footer";
 import Admin from "./page/admin/Admin";
 import Login from "./page/website/Login";
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute"; // Import the protected route
 
 function App() {
   const location = useLocation();
@@ -33,8 +34,16 @@ function App() {
         <Route path="/oferta" element={<Oferta />} />
         <Route path="/rozwiazania" element={<Rozwiazania />} />
         <Route path="/login" element={<Login />} />
-        {/* Nested routes under /admin */}
-        <Route path="/admin/*" element={<Admin />} />
+
+        {/* Protect the /admin route with AdminProtectedRoute */}
+        <Route
+          path="/admin/*"
+          element={
+            <AdminProtectedRoute>
+              <Admin />
+            </AdminProtectedRoute>
+          }
+        />
       </Routes>
 
       {/* Only render Footer if not on the /admin route */}

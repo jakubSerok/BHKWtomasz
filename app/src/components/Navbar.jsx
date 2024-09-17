@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { MdAccountBox } from "react-icons/md";
 
 const Navbar = () => {
   let [open, setOpen] = useState(false);
@@ -11,7 +12,9 @@ const Navbar = () => {
       <div className="hidden sm:flex flex-col h-full">
         <div className="h-[70%] border-b-2 border-black flex justify-between px-6 items-center">
           <img src={logo} alt="" className="h-[90%]" />
-          <div>2</div>
+          <a href="/login">
+            <MdAccountBox size={30} />
+          </a>
         </div>
 
         <ul className="flex items-center justify-between px-4 h-[70%]">
