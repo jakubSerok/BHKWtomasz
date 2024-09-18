@@ -4,10 +4,12 @@ import upload_area from "../../assets/upload_area.svg";
 const AddProduct = () => {
   const [image, setImage] = useState(false);
   const [productDetails, setProductDetails] = useState({
-    name: "",
-    image: "",
+    title: "",
     price: "",
+    stock: "",
     available: true,
+    description: "",
+    productCode: "",
   });
 
   const imageHandler = (e) => {
@@ -26,7 +28,7 @@ const AddProduct = () => {
     let formData = new FormData();
     formData.append("product", image);
 
-    await fetch(`http://localhost:${3001}/upload`, {
+    await fetch(`http://localhost:3001/upload`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -38,20 +40,28 @@ const AddProduct = () => {
         responseData = data;
       });
 
-    if (responseData.succes) {
-      product.image = responseData.image_url;
+    if (responseData.success) {
+      product.images = [responseData.image_url];
       console.log(responseData);
-      await fetch(`http://localhost:${3001}/addproduct`, {
+      await fetch(`http://localhost:3001/addproduct`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify({
+          title: product.title,
+          price: product.price,
+          stock: product.stock,
+          available: product.available,
+          description: product.description,
+          productCode: product.productCode,
+          images: product.images,
+        }),
       })
         .then((resp) => resp.json())
         .then((data) => {
-          data.succes ? alert("Product Added") : alert("Failed");
+          data.success ? alert("Product Added") : alert("Failed");
         });
     }
   };
@@ -59,12 +69,12 @@ const AddProduct = () => {
   return (
     <div className="box-border w-full max-w-[800px] px-[50px] py-[30px] my-[20px] mx-[30px] rounded-md bg-white">
       <div className="w-full text-[16px] text-[#7b7b7b]">
-        <p>Product title</p>
+        <p>Product Title</p>
         <input
-          value={productDetails.name}
+          value={productDetails.title}
           onChange={changeHandler}
           type="text"
-          name="name"
+          name="title"
           placeholder="Type here"
           className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
         />
@@ -76,6 +86,39 @@ const AddProduct = () => {
           onChange={changeHandler}
           type="text"
           name="price"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Stock</p>
+        <input
+          value={productDetails.stock}
+          onChange={changeHandler}
+          type="text"
+          name="stock"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Description</p>
+        <textarea
+          value={productDetails.description}
+          onChange={changeHandler}
+          type="text"
+          name="description"
+          placeholder="Type here"
+          className="box-border w-full h-[100px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Product Code</p>
+        <input
+          value={productDetails.productCode}
+          onChange={changeHandler}
+          type="text"
+          name="productCode"
           placeholder="Type here"
           className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
         />
@@ -103,4 +146,5 @@ const AddProduct = () => {
     </div>
   );
 };
+
 export default AddProduct;

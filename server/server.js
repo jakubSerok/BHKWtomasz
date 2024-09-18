@@ -38,42 +38,59 @@ const upload = multer({ storage: storage });
 app.use("/images", express.static("upload/images"));
 
 app.post("/upload", upload.single("product"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: 0, message: "No file uploaded" });
+  }
+
   res.json({
-    succes: 1,
-    image_url: `http://localhost:${3001}/images/${req.file.filename}`,
+    success: 1,
+    image_url: `http://localhost:3001/images/${req.file.filename}`,
   });
 });
 
 //Schema for Creating Products
-
+// Schema for Creating Products
 const Product = mongoose.model("Product", {
   id: {
     type: Number,
     required: true,
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
-  image: {
-    type: String,
+  images: {
+    type: Array,
+    default: [],
     required: true,
   },
   price: {
     type: Number,
     required: true,
   },
+  stock: {
+    type: Number,
+    required: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  productCode: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
   },
-  avilable: {
-    type: Boolean,
-    default: true,
-  },
 });
 
-//Creating Endpoint for adding product
+// Creating Endpoint for adding product
 app.post("/addproduct", async (req, res) => {
   let products = await Product.find({});
   let id;
@@ -87,27 +104,85 @@ app.post("/addproduct", async (req, res) => {
   }
   const product = new Product({
     id: id,
-    name: req.body.name,
-    image: req.body.image,
-    price: req.body.price, // Corrected this line
+    title: req.body.title,
+    images: req.body.images,
+    price: req.body.price,
+    stock: req.body.stock,
+    available: req.body.available,
+    description: req.body.description,
+    productCode: req.body.productCode,
   });
   await product.save();
   res.json({
-    succes: true,
-    name: req.body.name,
+    success: true,
+    title: req.body.title,
   });
 });
 
-//Creating API for deleting product
+// Creating API for deleting product
 app.post("/removeproduct", async (req, res) => {
   await Product.findOneAndDelete({ id: req.body.id });
   res.json({
-    succes: true,
-    name: req.body.name,
+    success: true,
+    title: req.body.title,
   });
 });
 
-//Creating API for getting all prdocuts
+// Creating API for editing a product with partial updates
+app.post("/editproduct", async (req, res) => {
+  try {
+    const {
+      id,
+      title,
+      images,
+      price,
+      stock,
+      available,
+      description,
+      productCode,
+    } = req.body;
+
+    // Create an update object only with fields that are present in the request body
+    let updateFields = {};
+    if (title) updateFields.title = title;
+    if (images) updateFields.images = images;
+    if (price) updateFields.price = price;
+    if (stock) updateFields.stock = stock;
+    if (available !== undefined) updateFields.available = available; // Check for undefined because 'false' is a valid value
+    if (description) updateFields.description = description;
+    if (productCode) updateFields.productCode = productCode;
+
+    // Check if there's something to update
+    if (Object.keys(updateFields).length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, errors: "No fields to update" });
+    }
+
+    // Find the product by its ID and update its details
+    let updatedProduct = await Product.findOneAndUpdate(
+      { id: id },
+      { $set: updateFields },
+      { new: true } // Return the updated product
+    );
+
+    if (!updatedProduct) {
+      return res
+        .status(404)
+        .json({ success: false, errors: "Product not found" });
+    }
+
+    res.json({
+      success: true,
+      product: updatedProduct,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
+
+// Creating API for getting all products
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
   res.send(products);

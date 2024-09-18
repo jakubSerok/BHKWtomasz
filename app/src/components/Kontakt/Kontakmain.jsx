@@ -5,7 +5,7 @@ const Kontakmain = () => {
   return (
     <div className="flex flex-col pt-[100px] px-10 justify-center items-center">
       <p className="uppercase font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        O nas
+        Kontakt
       </p>
       <div className="flex md:flex-row flex-col">
         <div className="flex flex-col gap-3">
@@ -13,7 +13,7 @@ const Kontakmain = () => {
           <p className="text-xl font-bold"> BHKW Anlagenservice</p>
           <ul className="list-disc text-xl font-semibold ">
             <li>Christopf Bernhard Strasse 17</li>
-            <li>493945 Lohne</li>
+            <li>49393 Lohne</li>
             <li>Deutschland</li>
             <li>
               Telefon:

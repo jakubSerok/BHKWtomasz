@@ -17,7 +17,7 @@ const Navbar = () => {
           </a>
         </div>
 
-        <ul className="flex items-center justify-between px-4 h-[70%]">
+        <ul className="flex items-center justify-between px-4 h-[70%] border-b-2 border-black">
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase">
             <a href="/shop">sklep</a>
           </li>
