@@ -24,7 +24,7 @@ const Rozwiazaniamain = () => {
               może przepracować twój silnik do następnego serwisu.
             </p>
           </div>
-          <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5">
+          <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5 bg-white rounded-3xl">
             <img src={icon3} className="w-[100px] h-[100px]" alt="" />
             <p className="text-2xl font-semibold">Zestawienie Rentowsnosći</p>
             <p className="font-semibold text-lg w-[80%]">
@@ -33,7 +33,7 @@ const Rozwiazaniamain = () => {
               standardów.
             </p>
           </div>
-          <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5">
+          <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5 bg-white rounded-3xl">
             <img src={icon2} className="w-[100px] h-[100px]" alt="" />
             <p className="text-2xl font-semibold">Sklep Internetowy</p>
             <p className="font-semibold text-lg w-[80%]">
