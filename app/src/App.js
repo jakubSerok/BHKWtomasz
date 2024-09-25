@@ -20,6 +20,7 @@ import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute"; // Imp
 import img from "./assets/tlo.png";
 import ShopContextProvider from "./components/Context/ShopContext";
 import Product from "./page/website/Product";
+import Blog from "./page/website/Blog";
 
 function App() {
   const location = useLocation();
@@ -47,6 +48,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/product" element={<Product />}>
           <Route path=":productId" element={<Product />} />
+        </Route>
+        <Route path="/blog" element={<Blog />}>
+          <Route path=":blogId" element={<Blog />} />
         </Route>
 
         {/* Protect the /admin route with AdminProtectedRoute */}

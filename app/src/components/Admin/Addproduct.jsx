@@ -10,6 +10,7 @@ const AddProduct = () => {
     available: true,
     description: "",
     productCode: "",
+    images: [],
   });
 
   const imageHandler = (e) => {
@@ -22,47 +23,52 @@ const AddProduct = () => {
 
   const Add_Product = async () => {
     console.log(productDetails);
-    let responseData;
-    let product = productDetails;
 
+    // Create form data for image upload
     let formData = new FormData();
-    formData.append("product", image);
+    formData.append("productImage", image);
 
-    await fetch(`http://localhost:3001/upload`, {
+    // Upload the image and get the URL
+    const uploadResponse = await fetch(`http://localhost:3001/upload/product`, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
       body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        responseData = data;
-      });
+    });
 
-    if (responseData.success) {
-      product.images = [responseData.image_url];
-      console.log(responseData);
-      await fetch(`http://localhost:3001/addproduct`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: product.title,
-          price: product.price,
-          stock: product.stock,
-          available: product.available,
-          description: product.description,
-          productCode: product.productCode,
-          images: product.images,
-        }),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          data.success ? alert("Product Added") : alert("Failed");
-        });
+    const uploadData = await uploadResponse.json();
+
+    if (uploadData.success) {
+      const imageUrl = uploadData.image_url; // Store the image URL temporarily
+
+      // Now submit the product details, including the image URL
+      const addProductResponse = await fetch(
+        `http://localhost:3001/addproduct`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: productDetails.title,
+            price: productDetails.price,
+            stock: productDetails.stock,
+            available: productDetails.available,
+            description: productDetails.description,
+            productCode: productDetails.productCode,
+            images: [imageUrl], // Use the image URL here
+          }),
+        }
+      );
+
+      const addProductData = await addProductResponse.json();
+
+      if (addProductData.success) {
+        alert("Product Added");
+      } else {
+        alert("Failed to add product");
+      }
+    } else {
+      alert("Failed to upload image");
     }
   };
 

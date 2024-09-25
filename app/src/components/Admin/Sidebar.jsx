@@ -18,6 +18,18 @@ const Sidebar = () => {
           <p>Product List</p>
         </div>
       </Link>
+      <Link to="/admin/addblog" style={{ textDecoration: "none" }}>
+        <div className="flex items-center justify-center mx-[20px] px-[10px] py-[5px] rounded-md bg-[#f6f6f6] gap-[20px] cursor-pointer">
+          <img src={list_product_icon} alt="Product List" />
+          <p>Product List</p>
+        </div>
+      </Link>
+      <Link to="/admin/listblog" style={{ textDecoration: "none" }}>
+        <div className="flex items-center justify-center mx-[20px] px-[10px] py-[5px] rounded-md bg-[#f6f6f6] gap-[20px] cursor-pointer">
+          <img src={list_product_icon} alt="Product List" />
+          <p>Product List</p>
+        </div>
+      </Link>
     </div>
   );
 };

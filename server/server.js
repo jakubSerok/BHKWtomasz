@@ -37,7 +37,19 @@ const upload = multer({ storage: storage });
 //Creating Upload Endpoin for images
 app.use("/images", express.static("upload/images"));
 
-app.post("/upload", upload.single("product"), (req, res) => {
+app.post("/upload/product", upload.single("productImage"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: 0, message: "No file uploaded" });
+  }
+
+  res.json({
+    success: 1,
+    image_url: `http://localhost:3001/images/${req.file.filename}`,
+  });
+});
+
+// New Blog Image Upload Endpoint
+app.post("/upload/blog", upload.single("blogImage"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: 0, message: "No file uploaded" });
   }
@@ -353,6 +365,96 @@ app.post("/getcart", fetchUser, async (req, res) => {
   let userData = await Users.findOne({ _id: req.user.id });
   res.json(userData.cartData);
 });
+
+// Blog Schema
+const Blog = mongoose.model("Blog", {
+  id: {
+    type: Number,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  images: {
+    type: Array,
+    default: [],
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+// Endpoint for adding a blog post
+app.post("/addblog", async (req, res) => {
+  let blogs = await Blog.find({});
+  let id;
+
+  if (blogs.length > 0) {
+    let last_blog_array = blogs.slice(-1);
+    let last_blog = last_blog_array[0];
+    id = last_blog.id + 1;
+  } else {
+    id = 1;
+  }
+
+  const blog = new Blog({
+    id: id,
+    title: req.body.title,
+    images: req.body.images, // This should be an array of image URLs
+    description: req.body.description,
+  });
+
+  await blog.save();
+  res.json({
+    success: true,
+    blog: blog,
+  });
+});
+
+// Endpoint for editing a blog post
+app.post("/editblog", async (req, res) => {
+  const { id, title, images, description } = req.body;
+
+  const updatedBlog = await Blog.findOneAndUpdate(
+    { id: id },
+    {
+      $set: {
+        title: title,
+        images: images,
+        description: description,
+      },
+    },
+    { new: true } // Return the updated blog post
+  );
+
+  if (!updatedBlog) {
+    return res.status(404).json({ success: false, message: "Blog not found" });
+  }
+
+  res.json({ success: true, blog: updatedBlog });
+});
+
+// Endpoint for deleting a blog post
+app.post("/removeblog", async (req, res) => {
+  await Blog.findOneAndDelete({ id: req.body.id });
+  res.json({
+    success: true,
+    message: "Blog post deleted",
+  });
+});
+
+// Endpoint for getting all blog posts
+app.get("/allblogs", async (req, res) => {
+  let blogs = await Blog.find({});
+  res.send(blogs);
+});
+
 // Coonection test
 app.listen(port, (error) => {
   if (!error) {
