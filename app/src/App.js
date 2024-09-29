@@ -21,6 +21,8 @@ import img from "./assets/tlo.png";
 import ShopContextProvider from "./components/Context/ShopContext";
 import Product from "./page/website/Product";
 import Blog from "./page/website/Blog";
+import Checkout from "./page/website/Checkout";
+import UserPanel from "./page/website/UserPanel"; // Import the UserPanel component
 
 function App() {
   const location = useLocation();
@@ -46,13 +48,14 @@ function App() {
         <Route path="/oferta" element={<Oferta />} />
         <Route path="/rozwiazania" element={<Rozwiazania />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/product" element={<Product />}>
           <Route path=":productId" element={<Product />} />
         </Route>
         <Route path="/blog" element={<Blog />}>
           <Route path=":blogId" element={<Blog />} />
         </Route>
-
+        <Route path="/user" element={<UserPanel />} /> {/* User panel route */}
         {/* Protect the /admin route with AdminProtectedRoute */}
         <Route
           path="/admin/*"

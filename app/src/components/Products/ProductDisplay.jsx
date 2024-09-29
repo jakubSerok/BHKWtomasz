@@ -4,33 +4,50 @@ import { ShopContext } from "../Context/ShopContext";
 const ProductDisplay = (props) => {
   const { product } = props;
   const { addToCart } = useContext(ShopContext);
+
   if (!product) {
     return <p>No product data available.</p>;
   } else {
     return (
-      <div className="flex mx-[170px] py-10">
-        <div className="flex gap-[17px]">
-          <div>
-            <img src={product.images} alt="" className="w-[586px] h-[700px]" />
-          </div>
+      <div className="flex flex-col lg:flex-row lg:mx-[170px] p-10 gap-10 lg:gap-[70px]">
+        {/* Image Section */}
+        <div className="flex justify-center">
+          <img
+            src={product.images}
+            alt={product.title}
+            className="w-full h-auto sm:h-[500px] lg:w-[586px] lg:h-[700px] object-cover"
+          />
         </div>
-        <div className="mx-[70px] flex flex-col ">
-          <h1 className="text-[#3d3d3d] text-[40px] font-bold">
-            {product.title}
-          </h1>
-          <div className="flex my-[40px] gap-[30px] font-bold">
-            <h1>Price:</h1>
-            <div className="">$ {product.price}</div>
-          </div>
-          <div>{product.description}</div>
 
-          <div>
-            <h1 className="mt-[20px] text-[#656565] text-[20px] font-semibold">
-              Stock: {product.stock} pieces available
+        {/* Product Info Section */}
+        <div className="flex flex-col gap-6">
+          {/* Title and Price Box */}
+          <div className="bg-gray-100 p-5 rounded-lg shadow-lg">
+            <h1 className="text-[#3d3d3d] text-[24px] sm:text-[32px] lg:text-[40px] font-bold mb-3">
+              {product.title}
             </h1>
+            <div className="flex gap-3 sm:gap-6 font-bold text-[18px] sm:text-[20px]">
+              <h2 className="text-red-500">Price:</h2>
+              <p className="text-gray-800">$ {product.price}</p>
+            </div>
           </div>
+
+          {/* Availability Box */}
+          <div className="bg-blue-50 p-4 rounded-lg shadow-md">
+            <h2 className="text-[#656565] text-[16px] sm:text-[18px] lg:text-[20px] font-semibold">
+              Stock: {product.stock} pieces available
+            </h2>
+          </div>
+
+          {/* Description Box */}
+          <div className="bg-white p-5 rounded-lg shadow-md border">
+            <h2 className="text-[18px] font-bold mb-2">Description</h2>
+            <p className="text-gray-600">{product.description}</p>
+          </div>
+
+          {/* Add to Cart Button */}
           <button
-            className="px-[40px] py-[20px] w-[200px] text-[16px] font-semibold text-white bg-[#ff4141] mb-[40px] cursor-pointer"
+            className="mt-4 px-[20px] sm:px-[30px] lg:px-[40px] py-[15px] sm:py-[20px] w-[150px] sm:w-[180px] lg:w-[200px] text-[14px] sm:text-[16px] lg:text-[16px] font-semibold text-white bg-[#ff4141] mb-[40px] cursor-pointer rounded-md"
             onClick={() => {
               addToCart(product.id);
             }}

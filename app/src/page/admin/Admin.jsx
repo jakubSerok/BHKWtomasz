@@ -5,6 +5,7 @@ import Sidebar from "../../components/Admin/Sidebar";
 import ListProduct from "../../components/Admin/ListProduct";
 import AddBlog from "../../components/Admin/AddBlog";
 import ListBlog from "../../components/Admin/ListBlog";
+import AdminPanel from "../../components/Admin/AdminPanel";
 
 const Admin = () => {
   return (
@@ -16,6 +17,7 @@ const Admin = () => {
           <Route path="listproduct" element={<ListProduct />} />
           <Route path="addblog" element={<AddBlog />} />
           <Route path="listblog" element={<ListBlog />} />
+          <Route path="dashboard" element={<AdminPanel />} />
         </Routes>
       </div>
     </div>

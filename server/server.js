@@ -1,4 +1,5 @@
 const port = 3001;
+const stripe = require("stripe")("sk_test_7mJuPfZsBzc3JkrANrFrcDqC");
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -453,6 +454,176 @@ app.post("/removeblog", async (req, res) => {
 app.get("/allblogs", async (req, res) => {
   let blogs = await Blog.find({});
   res.send(blogs);
+});
+
+// Schema for creating Orders
+const Order = mongoose.model("Order", {
+  id: {
+    type: Number,
+    required: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  products: {
+    type: Array,
+    required: true,
+  },
+  total: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["pending", "shipped", "delivered", "cancelled"],
+    default: "pending",
+  },
+});
+// Endpoint for adding an order
+// Endpoint for adding an order
+app.post("/addorder", fetchUser, async (req, res) => {
+  let orders = await Order.find({});
+  let id;
+
+  if (orders.length > 0) {
+    let last_order_array = orders.slice(-1);
+    let last_order = last_order_array[0];
+    id = last_order.id + 1;
+  } else {
+    id = 1;
+  }
+
+  const order = new Order({
+    id: id,
+    userId: req.user.id,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    postalCode: req.body.postalCode,
+    country: req.body.country,
+    phone: req.body.phone,
+    email: req.body.email,
+    products: req.body.products,
+    total: req.body.total,
+  });
+
+  await order.save();
+
+  // Subtract the quantity of items from the product stock
+  for (let i = 0; i < req.body.products.length; i++) {
+    const productId = req.body.products[i].id;
+    const quantity = req.body.products[i].quantity;
+
+    const product = await Product.findById(productId);
+    if (product) {
+      product.stock -= quantity;
+      await product.save();
+    }
+  }
+
+  res.json({
+    success: true,
+    order: order,
+  });
+});
+// Endpoint for getting all orders
+app.get("/allorders", fetchUser, isAdmin, async (req, res) => {
+  let orders = await Order.find({});
+  res.send(orders);
+});
+
+// Endpoint for getting orders for a specific user ID
+app.get("/myorders", fetchUser, async (req, res) => {
+  let orders = await Order.find({ userId: req.user.id });
+  res.send(orders);
+});
+
+// Endpoint for updating the status of an order
+app.post("/updateorderstatus", fetchUser, isAdmin, async (req, res) => {
+  const { id, status } = req.body;
+
+  const updatedOrder = await Order.findOneAndUpdate(
+    { id: id },
+    {
+      $set: {
+        status: status,
+      },
+    },
+    { new: true } // Return the updated order
+  );
+
+  if (!updatedOrder) {
+    return res.status(404).json({ success: false, message: "Order not found" });
+  }
+
+  res.json({ success: true, order: updatedOrder });
+});
+app.post("/create-checkout-session", async (req, res) => {
+  const { amount } = req.body;
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Your Product Name", // Update accordingly
+          },
+          unit_amount: amount, // Amount in cents
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: "http://localhost:3001/success", // Redirect after success
+    cancel_url: "http://localhost:3001/cancel", // Redirect after cancel
+  });
+
+  res.json({ id: session.id });
 });
 
 // Coonection test
