@@ -11,8 +11,7 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: ["https://bhkwtomasz.vercel.app"],
-    credentials: true,
+    origin: "https://bhkwtomasz.vercel.app",
   })
 );
 app.use(express.json());
