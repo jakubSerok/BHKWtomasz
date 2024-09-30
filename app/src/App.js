@@ -55,7 +55,8 @@ function App() {
         <Route path="/blog" element={<Blog />}>
           <Route path=":blogId" element={<Blog />} />
         </Route>
-        <Route path="/user" element={<UserPanel />} /> {/* User panel route */}
+        <Route path="/user/*" element={<UserPanel />} />
+
         {/* Protect the /admin route with AdminProtectedRoute */}
         <Route
           path="/admin/*"

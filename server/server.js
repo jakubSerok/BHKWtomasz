@@ -336,6 +336,44 @@ const fetchUser = (req, res, next) => {
     res.status(401).json({ errors: "Please authenticate using a valid token" });
   }
 };
+// Endpoint to get the user profile
+app.get("/profile", fetchUser, async (req, res) => {
+  try {
+    const user = await Users.findById(req.user.id); // Get user by ID
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.json(user); // Return user data
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
+// Endpoint to update the user profile
+app.post("/profile", fetchUser, async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const updatedUser = await Users.findByIdAndUpdate(
+      req.user.id, // Find the user by ID
+      { name, email, password }, // Update these fields
+      { new: true } // Return the updated user
+    );
+
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, user: updatedUser }); // Return the updated user
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
+});
 
 //creating endpoint for add to cart
 app.post("/addtocart", fetchUser, async (req, res) => {
@@ -577,8 +615,18 @@ app.get("/allorders", fetchUser, isAdmin, async (req, res) => {
 
 // Endpoint for getting orders for a specific user ID
 app.get("/myorders", fetchUser, async (req, res) => {
-  let orders = await Order.find({ userId: req.user.id });
-  res.send(orders);
+  try {
+    const orders = await Order.find({ userId: req.user.id });
+    if (!orders) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No orders found" });
+    }
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, errors: "Server error" });
+  }
 });
 
 // Endpoint for updating the status of an order
