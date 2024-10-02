@@ -23,9 +23,9 @@ const SideBarUser = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row">
+    <div className="flex sm:flex-col flex-row">
       {/* Sidebar */}
-      <div className="w-full sm:w-3/4 bg-gray-200 h-[300px] sm:h-screen">
+      <div className="w-full p-2 bg-gray-200 h-[300px] sm:h-screen">
         <h2 className="text-lg font-bold mb-4">User Panel</h2>
         <ul className="space-y-2">
           <li>

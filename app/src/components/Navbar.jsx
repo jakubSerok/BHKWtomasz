@@ -16,9 +16,9 @@ const Navbar = () => {
   const isLoggedIn = localStorage.getItem("auth-token") !== null;
 
   return (
-    <nav className="sm:h-[140px] h-[80px]">
+    <nav className="sm:h-[140px] h-[80px] bg-white">
       {/* Desktop Menu */}
-      <div className="hidden sm:flex flex-col h-full">
+      <div className="hidden sm:flex flex-col h-full bg-white">
         <div className="h-[70%] border-b-2 border-black flex justify-between px-6 items-center">
           <img src={logo} alt="" className="h-[90%]" />
           <div className="flex items-center space-x-4">

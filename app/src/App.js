@@ -17,7 +17,7 @@ import Cart from "./page/website/Cart";
 import Admin from "./page/admin/Admin";
 import Login from "./page/website/Login";
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute"; // Import the protected route
-import img from "./assets/tlo.png";
+import img from "./assets/tlo2.png";
 import ShopContextProvider from "./components/Context/ShopContext";
 import Product from "./page/website/Product";
 import Blog from "./page/website/Blog";

@@ -14,7 +14,7 @@ const Item = (props) => {
             onClick={() => window.scrollTo(0, 0)}
             src={props.images}
             alt={props.name}
-            className="h-[200px] object-cover w-full rounded-md"
+            className="h-[200px] object-cover w-full rounded-lg"
           />
         </Link>
 

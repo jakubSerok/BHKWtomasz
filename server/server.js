@@ -9,21 +9,8 @@ const path = require("path");
 const cors = require("cors");
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://bhkwtomasz.vercel.app",
-  })
-);
+app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://bhkwtomasz.vercel.app");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
 
 //Database Connection with MonoDB
 mongoose.connect(
@@ -365,13 +352,20 @@ app.get("/profile", fetchUser, async (req, res) => {
   }
 });
 // Endpoint to update the user profile
+// Endpoint to update the user profile
 app.post("/profile", fetchUser, async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    if (password) {
+      // Hash the password before storing it in the database
+      const hashedPassword = await bcrypt.hash(password, 10);
+      req.body.password = hashedPassword;
+    }
+
     const updatedUser = await Users.findByIdAndUpdate(
       req.user.id, // Find the user by ID
-      { name, email, password }, // Update these fields
+      req.body, // Update these fields
       { new: true } // Return the updated user
     );
 
