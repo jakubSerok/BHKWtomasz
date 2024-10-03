@@ -12,7 +12,7 @@ const apiUrl = "https://bhkwtomasz-server.vercel.app";
 const app = express();
 app.use(
   cors({
-    origin: "*", // or a specific domain for production
+    origin: "*", // or a specific domain for producti
     methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
 
     // Allow credentials if needed
