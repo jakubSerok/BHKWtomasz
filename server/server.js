@@ -10,13 +10,14 @@ const cors = require("cors");
 const apiUrl = "https://bhkwtomasz-server.vercel.app";
 
 const app = express();
-const corsOptions = {
-  origin: ["https://bhkwtomasz.vercel.app"], // Allow your frontend
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // Optional: use if your requests require cookies or credentials
-};
+app.use(
+  cors({
+    origin: "*", // or a specific domain for production
+    methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
 
-app.use(cors(corsOptions));
+    // Allow credentials if needed
+  })
+);
 app.use(express.json());
 
 //Database Connection with MonoDB
