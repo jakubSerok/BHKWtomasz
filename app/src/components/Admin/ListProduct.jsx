@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cross_icon from "../../assets/admin/cross_icon.png";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
@@ -16,7 +17,7 @@ const ListProduct = () => {
   // Fetch product data
   const fetchInfo = async () => {
     try {
-      const response = await fetch("http://localhost:3001/allproducts");
+      const response = await fetch(`${apiUrl}/allproducts`);
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setAllProducts(data);
@@ -33,7 +34,7 @@ const ListProduct = () => {
   // Remove a product
   const removeProduct = async (id) => {
     try {
-      await fetch("http://localhost:3001/removeproduct", {
+      await fetch(`${apiUrl}/removeproduct`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -70,7 +71,7 @@ const ListProduct = () => {
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/editproduct", {
+      const response = await fetch(`${apiUrl}/editproduct`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

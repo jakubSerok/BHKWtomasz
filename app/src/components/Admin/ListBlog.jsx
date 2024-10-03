@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cross_icon from "../../assets/admin/cross_icon.png";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListBlog = () => {
   const [allBlogs, setAllBlogs] = useState([]);
@@ -13,7 +14,7 @@ const ListBlog = () => {
   // Fetch blog data
   const fetchInfo = async () => {
     try {
-      const response = await fetch("http://localhost:3001/allblogs");
+      const response = await fetch(`${apiUrl}/allblogs`);
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setAllBlogs(data);
@@ -30,7 +31,7 @@ const ListBlog = () => {
   // Remove a blog
   const removeBlog = async (id) => {
     try {
-      await fetch("http://localhost:3001/removeblog", {
+      await fetch(`${apiUrl}/removeblog`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -64,7 +65,7 @@ const ListBlog = () => {
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/editblog", {
+      const response = await fetch(`${apiUrl}/editblog`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

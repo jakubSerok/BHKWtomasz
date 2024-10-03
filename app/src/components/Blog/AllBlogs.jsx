@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ItemBlog from "./ItemBlog"; // You would need to create this component similar to `Item`
-
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 const AllBlogs = () => {
   const [allBlogs, setAllBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/allblogs")
+    fetch(`${apiUrl}/allblogs`)
       .then((res) => res.json())
       .then((data) => setAllBlogs(data));
   }, []);

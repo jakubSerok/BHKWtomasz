@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { ShopContext } from "../../components/Context/ShopContext";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const stripePromise = loadStripe("YOUR_PUBLISHABLE_KEY"); // Replace with your Stripe public key
 
@@ -12,16 +13,13 @@ const Checkout = () => {
     const stripe = await stripePromise;
 
     // Call your backend to create the Checkout session
-    const response = await fetch(
-      "http://localhost:3001/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: getTotalCartAmount() * 100 }), // Amount in cents
-      }
-    );
+    const response = await fetch(`${apiUrl}/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: getTotalCartAmount() * 100 }), // Amount in cents
+    });
 
     const session = await response.json();
     // Redirect to Stripe Checkout

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import upload_area from "../../assets/upload_area.svg";
-
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 const AddBlog = () => {
   const [image, setImage] = useState(false);
   const [blogDetails, setBlogDetails] = useState({
@@ -25,7 +25,7 @@ const AddBlog = () => {
     formData.append("blogImage", image);
 
     // Upload the image and get the URL
-    const uploadResponse = await fetch(`http://localhost:3001/upload/blog`, {
+    const uploadResponse = await fetch(`${apiUrl}/upload/blog`, {
       method: "POST",
       body: formData,
     });
@@ -36,7 +36,7 @@ const AddBlog = () => {
       const imageUrl = uploadData.image_url; // Store the image URL temporarily
 
       // Now submit the blog details, including the image URL
-      const addBlogResponse = await fetch(`http://localhost:3001/addblog`, {
+      const addBlogResponse = await fetch(`${apiUrl}/addblog`, {
         method: "POST",
         headers: {
           Accept: "application/json",

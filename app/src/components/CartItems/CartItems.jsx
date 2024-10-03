@@ -3,7 +3,7 @@ import { ShopContext } from "../Context/ShopContext";
 import remoe_icon from "../../assets/admin/cross_icon.png";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 const stripePromise = loadStripe("Ysk_test_7mJuPfZsBzc3JkrANrFrcDqC"); // Replace with your Stripe public key
 
 const CartItems = () => {
@@ -17,16 +17,13 @@ const CartItems = () => {
     const stripe = await stripePromise;
 
     // Call your backend to create the Checkout session
-    const response = await fetch(
-      "http://localhost:3001/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: getTotalCartAmount() * 100 }), // Amount in cents
-      }
-    );
+    const response = await fetch(`${apiUrl}/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: getTotalCartAmount() * 100 }), // Amount in cents
+    });
 
     const session = await response.json();
     // Redirect to Stripe Checkout

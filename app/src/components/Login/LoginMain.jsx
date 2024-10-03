@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdAccountBox } from "react-icons/md";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
@@ -22,7 +23,7 @@ const LoginSignup = () => {
     setError("");
     let responseData;
     try {
-      await fetch("http://localhost:3001/login", {
+      await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -60,7 +61,7 @@ const LoginSignup = () => {
     setError("");
     let responseData;
     try {
-      await fetch("http://localhost:3001/signup", {
+      await fetch(`${apiUrl}/signup`, {
         method: "POST",
         headers: {
           Accept: "application/json",

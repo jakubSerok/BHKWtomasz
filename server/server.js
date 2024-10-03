@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const apiUrl = "https://bhkwtomasz-server.vercel.app";
 
 const app = express();
 app.use(cors());
@@ -22,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 // Image Storage Engine
-
+console.log("API URL:", apiUrl);
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
@@ -45,7 +46,7 @@ app.post("/upload/product", upload.single("productImage"), (req, res) => {
 
   res.json({
     success: 1,
-    image_url: `http://localhost:3001/images/${req.file.filename}`,
+    image_url: `${apiUrl}/images/${req.file.filename}`,
   });
 });
 
@@ -57,7 +58,7 @@ app.post("/upload/blog", upload.single("blogImage"), (req, res) => {
 
   res.json({
     success: 1,
-    image_url: `http://localhost:3001/images/${req.file.filename}`,
+    image_url: `${apiUrl}/images/${req.file.filename}`,
   });
 });
 
@@ -674,8 +675,8 @@ app.post("/create-checkout-session", async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: "http://localhost:3001/success", // Redirect after success
-    cancel_url: "http://localhost:3001/cancel", // Redirect after cancel
+    success_url: `${apiUrl}/success`, // Redirect after success
+    cancel_url: `${apiUrl}/cancel`, // Redirect after cancel
   });
 
   res.json({ id: session.id });

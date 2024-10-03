@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import upload_area from "../../assets/upload_area.svg";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const AddProduct = () => {
   const [image, setImage] = useState(false);
@@ -29,7 +30,7 @@ const AddProduct = () => {
     formData.append("productImage", image);
 
     // Upload the image and get the URL
-    const uploadResponse = await fetch(`http://localhost:3001/upload/product`, {
+    const uploadResponse = await fetch(`${apiUrl}/upload/product`, {
       method: "POST",
       body: formData,
     });
@@ -40,25 +41,22 @@ const AddProduct = () => {
       const imageUrl = uploadData.image_url; // Store the image URL temporarily
 
       // Now submit the product details, including the image URL
-      const addProductResponse = await fetch(
-        `http://localhost:3001/addproduct`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: productDetails.title,
-            price: productDetails.price,
-            stock: productDetails.stock,
-            available: productDetails.available,
-            description: productDetails.description,
-            productCode: productDetails.productCode,
-            images: [imageUrl], // Use the image URL here
-          }),
-        }
-      );
+      const addProductResponse = await fetch(`${apiUrl}/addproduct`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: productDetails.title,
+          price: productDetails.price,
+          stock: productDetails.stock,
+          available: productDetails.available,
+          description: productDetails.description,
+          productCode: productDetails.productCode,
+          images: [imageUrl], // Use the image URL here
+        }),
+      });
 
       const addProductData = await addProductResponse.json();
 

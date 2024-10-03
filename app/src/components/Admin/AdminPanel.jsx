@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 const AdminPanel = () => {
   const [data, setData] = useState({
     currentVisitors: 0,
@@ -13,7 +13,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/admin/dashboard"); // Your API endpoint
+        const response = await fetch(`${apiUrl}/admin/dashboard`); // Your API endpoint
         const result = await response.json();
         setData(result);
       } catch (error) {

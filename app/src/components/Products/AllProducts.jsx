@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -8,7 +9,7 @@ const AllProducts = () => {
   const [searchQuery, setSearchQuery] = useState(""); // state for search input
 
   useEffect(() => {
-    fetch("http://localhost:3001/allproducts")
+    fetch(`${apiUrl}/allproducts`)
       .then((res) => res.json())
       .then((data) => {
         const sortedData = sortProducts(data, sortOption);
@@ -16,7 +17,7 @@ const AllProducts = () => {
         setDisplayedProducts(sortedData);
       });
   }, [sortOption]);
-
+  console.log("API URL:", apiUrl);
   const sortProducts = (products, option) => {
     if (option === "priceAsc") {
       return products.sort((a, b) => a.price - b.price);
