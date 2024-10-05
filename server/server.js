@@ -689,6 +689,20 @@ app.post("/create-checkout-session", async (req, res) => {
   res.json({ id: session.id });
 });
 
+app.get("/admin/stats", fetchUser, isAdmin, async (req, res) => {
+  try {
+    const users = await Users.countDocuments({ accountType: "user" });
+    const products = await Product.countDocuments();
+    const orders = await Order.countDocuments();
+    const visitors = 0; // Example static data; replace this with actual visitor tracking logic
+
+    res.json({ users, products, orders, visitors });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 // Coonection test
 app.listen(port, (error) => {
   if (!error) {

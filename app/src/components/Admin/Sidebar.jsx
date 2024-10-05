@@ -5,7 +5,7 @@ import list_product_icon from "../../assets/admin/Product_list_icon.svg";
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col pt-[30px] gap-[20px] w-full max-w-[250px] h-screen bg-white">
+    <div className="flex flex-col pt-[30px] gap-[20px] w-full max-w-[250px] h-screen bg-slate-500 border-r-2 border-black">
       <Link to="/admin/dashboard" style={{ textDecoration: "none" }}>
         <div className="flex items-center justify-center mx-[20px] px-[10px] py-[5px] rounded-md bg-[#f6f6f6] gap-[20px] cursor-pointer">
           <img src={add_product_icon} alt="Add Product" />

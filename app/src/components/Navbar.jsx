@@ -31,7 +31,7 @@ const Navbar = () => {
               </span>
             </a>
             {/* Account Icon */}
-            <a href={isLoggedIn ? "/user" : "/login"}>
+            <a href={isLoggedIn ? "/user/profile" : "/login"}>
               <MdAccountBox size={30} />
             </a>
           </div>
@@ -124,7 +124,7 @@ const Navbar = () => {
             </a>
 
             {/* Account Icon */}
-            <a href={isLoggedIn ? "/user" : "/login"}>
+            <a href={isLoggedIn ? "/user/profile" : "/login"}>
               <MdAccountBox size={30} />
             </a>
           </div>
