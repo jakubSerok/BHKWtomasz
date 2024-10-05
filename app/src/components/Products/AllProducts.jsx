@@ -15,7 +15,8 @@ const AllProducts = () => {
         const sortedData = sortProducts(data, sortOption);
         setAllProducts(sortedData);
         setDisplayedProducts(sortedData);
-      });
+      })
+      .catch((error) => console.error("Error:", error));
   }, [sortOption]);
   console.log("API URL:", apiUrl);
   const sortProducts = (products, option) => {
