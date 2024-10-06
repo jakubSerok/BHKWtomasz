@@ -7,14 +7,14 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-const apiUrl = "https://bhkwtomasz-server.vercel.app";
+const apiUrl = "https://bhkwtomasz-3hzw.vercel.app";
 
 const app = express();
 
 // Allow all origins or specify the ones you need
 app.use(
   cors({
-    origin: "*", // Frontend URL
+    origin: "https://bhkwtomasz.vercel.app", // Frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "auth-token"], // Include 'auth-token'
     maxAge: 3600,
