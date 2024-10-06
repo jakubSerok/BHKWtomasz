@@ -14,14 +14,19 @@ const app = express();
 // Allow all origins or specify the ones you need
 app.use(
   cors({
-    origin: "https://bhkwtomasz.vercel.app", // Frontend URL
+    origin: "*", // Frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "auth-token"], // Include 'auth-token'
     maxAge: 3600,
     credentials: true,
   })
 );
-
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 app.use(express.json());
 
 //Database Connection with MonoDB
