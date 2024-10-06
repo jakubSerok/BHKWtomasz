@@ -39,22 +39,22 @@ const Navbar = () => {
 
         <ul className="flex items-center justify-between px-4 h-[70%] border-b-2 border-black">
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
-            <a href="/shop">sklep</a>
+            <a href="/shop">Speichren</a>
           </li>
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
             <a href="/">home</a>
           </li>
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
-            <a href="/blogs">blogi</a>
+            <a href="/blogs">blogs</a>
           </li>
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
-            <a href="/about">o nas</a>
+            <a href="/about">Über uns</a>
           </li>
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
             <a href="/kontakt">kontakt</a>
           </li>
           <li className="md:text-[20px] sm:text-[15px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out">
-            <a href="/oferta">oferta</a>
+            <a href="/oferta">Angebot</a>
           </li>
         </ul>
       </div>
@@ -82,7 +82,7 @@ const Navbar = () => {
           <ul className="flex flex-col items-start justify-center h-full space-y-4">
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
               <a href="/shop" className="w-full block py-2">
-                sklep
+                SPEICHERN
               </a>
             </li>
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
@@ -92,12 +92,12 @@ const Navbar = () => {
             </li>
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
               <a href="/blogs" className="w-full block py-2">
-                blogi
+                blogs
               </a>
             </li>
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
               <a href="/about" className="w-full block py-2">
-                o nas
+                über uns
               </a>
             </li>
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
@@ -107,7 +107,7 @@ const Navbar = () => {
             </li>
             <li className="text-[20px] text-black bold uppercase border-b-2 w-full hover:scale-105 transition-transform duration-200 ease-in-out">
               <a href="/oferta" className="w-full block py-2">
-                oferta
+                Angebot
               </a>
             </li>
           </ul>

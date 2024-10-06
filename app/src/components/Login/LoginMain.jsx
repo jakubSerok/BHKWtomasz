@@ -114,7 +114,7 @@ const LoginSignup = () => {
               value={formData.username}
               onChange={changeHandler}
               type="text"
-              placeholder="Your Name"
+              placeholder="Ihr Name"
               className="h-[60px] md:h-[72px] w-full pl-[20px] border border-[#c9c9c9] outline-none text-[#5c5c5c] text-[16px] md:text-[18px] rounded-full"
             />
           ) : null}
@@ -123,7 +123,7 @@ const LoginSignup = () => {
             value={formData.email}
             onChange={changeHandler}
             type="email"
-            placeholder="Twój email"
+            placeholder="Ihre E-Mail"
             className="h-[60px] md:h-[72px] w-full pl-[20px] border border-[#c9c9c9] outline-none text-[#5c5c5c] text-[16px] md:text-[18px] rounded-full"
           />
           <input
@@ -131,7 +131,7 @@ const LoginSignup = () => {
             value={formData.password}
             onChange={changeHandler}
             type="password"
-            placeholder="Hasło"
+            placeholder="Passwort"
             className="h-[60px] md:h-[72px] w-full pl-[20px] border border-[#c9c9c9] outline-none text-[#5c5c5c] text-[16px] md:text-[18px] rounded-full"
           />
         </div>
@@ -140,27 +140,27 @@ const LoginSignup = () => {
           onClick={handleSubmit}
           className="w-full h-[60px] md:h-[72px] text-white bg-[#ff4141] mt-[20px] md:mt-[30px] text-[20px] md:text-[24px] font-medium cursor-pointer rounded-full"
         >
-          {loading ? "Loading..." : "Continue"}
+          {loading ? "Laden..." : "Weitermachen"}
         </button>
 
         {state === "Sign Up" ? (
           <p className="mt-[20px] text-[#5c5c5c] text-[16px] md:text-[18px]">
-            Already have an account?{" "}
+            Sie haben bereits ein Konto?{" "}
             <span
               className="text-[#ff4141] font-bold cursor-pointer"
               onClick={() => setState("Login")}
             >
-              Login here
+              Melden Sie sich hier an
             </span>
           </p>
         ) : (
           <p className="mt-[20px] text-white text-[16px] md:text-[18px]">
-            Create an account?{" "}
+            Ein Konto erstellen?{" "}
             <span
               className="text-[#ff4141] font-bold cursor-pointer"
               onClick={() => setState("Sign Up")}
             >
-              Click here
+              Klicken Sie hier
             </span>
           </p>
         )}

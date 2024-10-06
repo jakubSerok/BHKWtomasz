@@ -17,7 +17,7 @@ const OfertaMain = () => {
   return (
     <div className="px-10 flex flex-col items-center justify-center pt-[100px] gap-10">
       <h1 className="uppercase font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        OFERTA
+        ANGEBOT
       </h1>
       <Reveal>
         <VisibilitySensor onChange={onChange}>
@@ -30,15 +30,16 @@ const OfertaMain = () => {
 
             <div className="flex flex-col gap-4 bg-slate-100  rounded-b-2xl  md:rounded-l-none md:rounded-r-2xl p-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-                Monitoring Serwisu
+                Wartungsüberwachung
               </h2>
               <p className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                Nasz program sam wyśle przypomninie od nadchodzącym sweriwse,
-                dieki zemu nie muisz już więcej sam sprawadzć ie jeszcze
-                otogodzin może przepracwać twój silnik do nstpepnego serwisu.
+                Unser Programm sendet automatisch Erinnerungen für bevorstehende
+                Wartungen, sodass Sie nicht mehr selbst überprüfen müssen, wie
+                viele Stunden Ihr Motor bis zur nächsten Wartung noch arbeiten
+                kann.
               </p>
               <button className="w-[100px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
-                <a href="/kontakt"> zamów</a>
+                <a href="/kontakt"> Bestellung</a>
               </button>
             </div>
           </div>
@@ -49,15 +50,15 @@ const OfertaMain = () => {
           <div className="flex md:flex-row flex-col-reverse p-3 ">
             <div className="flex flex-col gap-4 bg-slate-100  rounded-b-2xl  md:rounded-r-none md:rounded-l-2xl p-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-                Zestawienie Rentowsnosći
+                Rentabilitätsanalyse
               </h2>
               <p className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                Już dziś dowiedz sięjakie jest zużycie BIO-gazu w porównaniu do
-                wytwarzanego prądu i dostosuj swiją BIO-gazownie do najlepszych
-                standardów.
+                Erfahren Sie noch heute, wie der Verbrauch von Biogas im
+                Vergleich zur erzeugten Energie aussieht und passen Sie Ihre
+                Biogasanlage an die besten Standards an.
               </p>
               <button className="w-[150px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
-                <a href="/oferta">Uzyska ofertę</a>
+                <a href="/oferta"> Angebot erhalten</a>
               </button>
             </div>{" "}
             <img
@@ -78,14 +79,14 @@ const OfertaMain = () => {
             />
             <div className="flex flex-col gap-4 bg-slate-100  rounded-b-2xl  md:rounded-l-none md:rounded-r-2xl  p-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-                Sklep Internetowy
+                Online-Shop
               </h2>
               <p className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                Zdobądź częsci zamienne w najpszych cennach na rynku, z
-                ekspresową dostawą -minimalizując koszty!
+                Erhalten Sie Ersatzteile zu den besten Preisen auf dem Markt,
+                mit Expresslieferung – minimieren Sie die Kosten!
               </p>
               <button className="w-[100px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
-                <a href="/shop">sklep</a>
+                <a href="/shop">Shop</a>
               </button>
             </div>
           </div>
@@ -96,16 +97,16 @@ const OfertaMain = () => {
           <div className="flex md:flex-row flex-col-reverse  p-3 ">
             <div className="flex flex-col gap-4 bg-slate-100 rounded-b-2xl  md:rounded-r-none md:rounded-l-2xl p-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-                Kompleksowy Serwis
+                Umfassender Service
               </h2>
               <p className="font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                Nasi serwisanci sprostająkażdemu zadnaiu, które postawi twój
-                slinik SCANIA. Nie musizs juz szukać specjalistów od każdej
-                naprawy. Zostaw to nam!
+                Unsere Techniker meistern jede Aufgabe, die Ihr SCANIA-Motor
+                stellt. Sie müssen nicht mehr nach Spezialisten für jede
+                Reparatur suchen. Überlassen Sie das uns!
               </p>
               <button className="w-[150px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
                 <a href="tel:+49 01545 6532 789" className="">
-                  zadzwoń
+                  Anrufen
                 </a>
               </button>
             </div>{" "}

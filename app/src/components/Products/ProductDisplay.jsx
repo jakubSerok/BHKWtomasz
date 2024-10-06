@@ -6,7 +6,7 @@ const ProductDisplay = (props) => {
   const { addToCart } = useContext(ShopContext);
 
   if (!product) {
-    return <p>No product data available.</p>;
+    return <p>Keine Produktdaten verfügbar.</p>;
   } else {
     return (
       <div className="flex flex-col lg:flex-row lg:mx-[170px] p-10 gap-10 lg:gap-[70px]">
@@ -27,21 +27,21 @@ const ProductDisplay = (props) => {
               {product.title}
             </h1>
             <div className="flex gap-3 sm:gap-6 font-bold text-[18px] sm:text-[20px]">
-              <h2 className="text-red-500">Price:</h2>
-              <p className="text-gray-800">$ {product.price}</p>
+              <h2 className="text-red-500">Preis::</h2>
+              <p className="text-gray-800">€ {product.price}</p>
             </div>
           </div>
 
           {/* Availability Box */}
           <div className="bg-blue-50 p-4 rounded-lg shadow-md">
             <h2 className="text-[#656565] text-[16px] sm:text-[18px] lg:text-[20px] font-semibold">
-              Stock: {product.stock} pieces available
+              Aktie : {product.stock} Stück verfügbar
             </h2>
           </div>
 
           {/* Description Box */}
           <div className="bg-white p-5 rounded-lg shadow-md border">
-            <h2 className="text-[18px] font-bold mb-2">Description</h2>
+            <h2 className="text-[18px] font-bold mb-2">Beschreibung</h2>
             <p className="text-gray-600">{product.description}</p>
           </div>
 
@@ -52,7 +52,7 @@ const ProductDisplay = (props) => {
               addToCart(product.id);
             }}
           >
-            ADD TO CART
+            IN DEN WARENKORB LEGEN
           </button>
         </div>
       </div>

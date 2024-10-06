@@ -86,7 +86,7 @@ const Profile = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full">
       <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 sm:p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Profile</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Profil</h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         {success && (
           <p className="text-green-500 text-center mb-4">{success}</p>
@@ -144,7 +144,7 @@ const Profile = () => {
             type="submit"
             className="w-full py-2 px-4 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Update Profile
+            Profil aktualisieren
           </button>
         </form>
       </div>

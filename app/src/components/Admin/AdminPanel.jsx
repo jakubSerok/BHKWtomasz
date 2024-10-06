@@ -12,7 +12,7 @@ const AdminPanel = () => {
     const fetchStats = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch(`${apiUrl}/admin/stats`, {
+        const response = await fetch(`${apiUrl}/stats`, {
           method: "GET",
           headers: {
             "auth-token": token,

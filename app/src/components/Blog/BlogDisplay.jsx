@@ -4,7 +4,7 @@ const BlogDisplay = (props) => {
   const { blog } = props;
 
   if (!blog) {
-    return <p>No blog data available.</p>;
+    return <p>Keine Blog-Daten verfügbar.</p>;
   } else {
     return (
       <div className="container mx-auto px-4 py-10">

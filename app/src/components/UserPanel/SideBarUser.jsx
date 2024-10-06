@@ -26,7 +26,7 @@ const SideBarUser = () => {
     <div className="flex sm:flex-col flex-row">
       {/* Sidebar */}
       <div className="w-full p-2 bg-gray-200 h-[300px] sm:h-screen">
-        <h2 className="text-lg font-bold mb-4">User Panel</h2>
+        <h2 className="text-lg font-bold mb-4">Benutzerbereich</h2>
         <ul className="space-y-2">
           <li>
             <Link
@@ -36,7 +36,7 @@ const SideBarUser = () => {
               } w-full text-left`}
               onClick={() => setActiveSection("profile")}
             >
-              <AiOutlineUser className="mr-2" /> Profile
+              <AiOutlineUser className="mr-2" /> Profil
             </Link>
           </li>
           <li>
@@ -47,7 +47,7 @@ const SideBarUser = () => {
               } w-full text-left`}
               onClick={() => setActiveSection("orders")}
             >
-              <AiOutlineHistory className="mr-2" /> Your Orders
+              <AiOutlineHistory className="mr-2" /> Ihre Bestellungen
             </Link>
           </li>
           <li>
@@ -55,7 +55,7 @@ const SideBarUser = () => {
               className="flex items-center p-2 rounded hover:bg-gray-300 w-full text-left"
               onClick={handleLogout}
             >
-              <AiOutlineLogout className="mr-2" /> Logout
+              <AiOutlineLogout className="mr-2" /> Abmelden
             </button>
           </li>
         </ul>

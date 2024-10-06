@@ -13,10 +13,10 @@ const Mainbanner = () => {
       }}
     >
       <h1 className="uppercase font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        obsluga i naprawa
+        Service und Reparatur
       </h1>
       <h2 className="uppercase text-xl md:text-2xl lg:text-3xl font-normal font-sans">
-        maksymalizuj swoja dyspozyjność
+        Maximieren Sie Ihre Verfügbarkeit{" "}
       </h2>
     </div>
   );

@@ -536,6 +536,14 @@ const Order = mongoose.model("Order", {
     type: String,
     required: true,
   },
+  companyName: {
+    // Optional company name
+    type: String,
+  },
+  numerPodatkowy: {
+    // Optional numer podatkowy (tax number)
+    type: String,
+  },
   address: {
     type: String,
     required: true,
@@ -576,15 +584,21 @@ const Order = mongoose.model("Order", {
     type: Date,
     default: Date.now,
   },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["pending", "shipped", "delivered", "cancelled"],
     default: "pending",
   },
 });
+
 // Endpoint for adding an order
 // Endpoint for adding an order
-app.post("/addorder", fetchUser, async (req, res) => {
+// Creating Endpoint for adding an order
+app.post("/addorder", async (req, res) => {
   let orders = await Order.find({});
   let id;
 
@@ -601,6 +615,8 @@ app.post("/addorder", fetchUser, async (req, res) => {
     userId: req.user.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    companyName: req.body.companyName,
+    numerPodatkowy: req.body.numerPodatkowy,
     address: req.body.address,
     city: req.body.city,
     state: req.body.state,
@@ -610,22 +626,11 @@ app.post("/addorder", fetchUser, async (req, res) => {
     email: req.body.email,
     products: req.body.products,
     total: req.body.total,
+    paymentMethod: req.body.paymentMethod,
+    status: req.body.status,
   });
 
   await order.save();
-
-  // Subtract the quantity of items from the product stock
-  for (let i = 0; i < req.body.products.length; i++) {
-    const productId = req.body.products[i].id;
-    const quantity = req.body.products[i].quantity;
-
-    const product = await Product.findById(productId);
-    if (product) {
-      product.stock -= quantity;
-      await product.save();
-    }
-  }
-
   res.json({
     success: true,
     order: order,
@@ -681,7 +686,7 @@ app.post("/create-checkout-session", async (req, res) => {
     line_items: [
       {
         price_data: {
-          currency: "usd",
+          currency: "eur",
           product_data: {
             name: "Your Product Name", // Update accordingly
           },
@@ -698,7 +703,7 @@ app.post("/create-checkout-session", async (req, res) => {
   res.json({ id: session.id });
 });
 
-app.get("/admin/stats", fetchUser, isAdmin, async (req, res) => {
+app.get("/stats", fetchUser, isAdmin, async (req, res) => {
   try {
     const users = await Users.countDocuments({ accountType: "user" });
     const products = await Product.countDocuments();

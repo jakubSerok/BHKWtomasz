@@ -14,9 +14,10 @@ const AllBlogs = () => {
     <div className="p-10">
       {/* Title and Description Section */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-gray-800">Blogas</h1>
+        <h1 className="text-4xl font-bold text-gray-800">Blogs</h1>
         <p className="mt-4 text-lg text-gray-600">
-          Read interesting articles, insights, and stories curated just for you.
+          Lesen Sie interessante Artikel, Einblicke und Geschichten, die
+          speziell für Sie zusammengestellt wurden.
         </p>
       </div>
 

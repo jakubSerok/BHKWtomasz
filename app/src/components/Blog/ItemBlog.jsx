@@ -26,7 +26,7 @@ const ItemBlog = (props) => {
             to={`/blog/${props.id}`}
             className="text-blue-600 text-[16px] font-medium hover:underline"
           >
-            Read More
+            Mehr lesen
           </Link>
         </div>
       </div>

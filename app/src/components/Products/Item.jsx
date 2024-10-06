@@ -48,7 +48,7 @@ const Item = (props) => {
             className="bg-[#ff4141] text-white py-[5px] px-[10px] rounded-lg cursor-pointer hover:bg-red-600"
             onClick={() => addToCart(props.id)}
           >
-            Add to Cart
+            In den Warenkorb legen
           </button>
         </div>
       </div>

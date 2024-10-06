@@ -23,6 +23,7 @@ import Product from "./page/website/Product";
 import Blog from "./page/website/Blog";
 import Checkout from "./page/website/Checkout";
 import UserPanel from "./page/website/UserPanel"; // Import the UserPanel component
+import Order from "./components/CartItems/Order";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
         <Route path="/rozwiazania" element={<Rozwiazania />} />
         <Route path="/login" element={<Login />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order" element={<Order />} />
         <Route path="/product" element={<Product />}>
           <Route path=":productId" element={<Product />} />
         </Route>

@@ -46,7 +46,7 @@ const AllProducts = () => {
   return (
     <div className="p-10">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-        <h1 className="text-4xl font-bold text-center">ALL PRODUCTS</h1>
+        <h1 className="text-4xl font-bold text-center">ALLE PRODUKTE</h1>
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
           {/* Search by Name */}
           <input
@@ -62,10 +62,14 @@ const AllProducts = () => {
             value={sortOption}
             onChange={handleSortChange}
           >
-            <option value="priceAsc">Sort by Price: Low to High</option>
-            <option value="priceDesc">Sort by Price: High to Low</option>
-            <option value="nameAsc">Sort by Name: A-Z</option>
-            <option value="nameDesc">Sort by Name: Z-A</option>
+            <option value="priceAsc">
+              Sortieren nach Preis: Niedrig bis Hoch
+            </option>
+            <option value="priceDesc">
+              Sortieren nach Preis: Hoch nach Niedrig
+            </option>
+            <option value="nameAsc">Sortieren nach Name: A-Z</option>
+            <option value="nameDesc">Sortieren nach Name: Z-A</option>
           </select>
         </div>
       </div>

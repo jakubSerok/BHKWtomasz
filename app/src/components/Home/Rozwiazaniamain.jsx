@@ -21,53 +21,51 @@ const Rozwiazaniamain = () => {
       <VisibilitySensor onChange={onChange}>
         <div className="flex flex-col gap-10 justify-between items-center pt-[100px]">
           <p className="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold">
-            nasze rozwiązania
+            Unsere Lösungen
           </p>
           <div className="flex px-5">
             <img className="hidden md:block" src={chlop} alt="" />
             <div className="grid sm:grid-cols-2 gap-x-2 gap-y-4 grid-cols-1 ">
               <div className="text-white bg-[#031124] rounded-3xl w-full h-full flex text-center flex-col items-center justify-center gap-5 p-3">
                 <img src={icon4} className="w-[100px] h-[100px]" alt="" />
-                <p className="text-2xl font-semibold">Monitoring Serwisu</p>
+                <p className="text-2xl font-semibold">Website-Überwachung</p>
                 <p className="font-semibold text-lg w-[80%]">
-                  Nasz program sam wyśle prypomninie o nadchodzącym serwise,
-                  dieki czemu nie musisz juz więcej sam sprawdzać ile jeszcze
-                  motogodzin może przepracować twój silnik do następnego
-                  serwisu.
+                  Unser Programm sendet automatisch eine Erinnerung an den
+                  bevorstehenden Service. Vielen Dank, warum Sie es nicht mehr
+                  selbst überprüfen müssen Motorstunden können Ihren Motor bis
+                  zum nächsten laufen lassen Service.
                 </p>
               </div>
               <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5 bg-white rounded-3xl">
                 <img src={icon3} className="w-[100px] h-[100px]" alt="" />
-                <p className="text-2xl font-semibold">
-                  Zestawienie Rentowsnosći
-                </p>
+                <p className="text-2xl font-semibold">Rentenabrechnung</p>
                 <p className="font-semibold text-lg w-[80%]">
-                  Już dziś dowiedz sięjakie jest zużycie BIO-gazu w porównaniu
-                  do wytwarzanego prądu i dostosuj swiją BIO-gazownie do
-                  najlepszych standardów.
+                  Erfahren Sie noch heute, wie hoch der BIO-Gasverbrauch im
+                  Vergleich ist an den erzeugten Strom anpassen und ihre
+                  BIO-Gasanlagen daran anpassen die besten Standards.
                 </p>
               </div>
               <div className="p-3 w-full h-full flex text-center flex-col items-center justify-center gap-5 bg-white rounded-3xl">
                 <img src={icon2} className="w-[100px] h-[100px]" alt="" />
-                <p className="text-2xl font-semibold">Sklep Internetowy</p>
+                <p className="text-2xl font-semibold">Internetshop</p>
                 <p className="font-semibold text-lg w-[80%]">
-                  Zdobądź częsci zamienne w najpszych cennach na rynku, z
-                  ekspresową dostawą -minimalizując koszty!
+                  Erhalten Sie Ersatzteile zu den besten Preisen auf dem Markt
+                  mit Expressversand - Kosten minimieren!
                 </p>
               </div>
               <div className="p-3 bg-[#031124] rounded-3xl text-white w-full h-full flex text-center flex-col items-center justify-center gap-5">
                 <img src={icon1} className="w-[100px] h-[100px]" alt="" />
-                <p className="text-2xl font-semibold">Kompleksowy Serwis</p>
+                <p className="text-2xl font-semibold">Umfassender Service</p>
                 <p className="font-semibold text-lg w-[80%]">
-                  Nasi serwisanci sprostająkażdemu zadnaiu, które postawi twój
-                  slinik SCANIA. Nie musizs juz szukać specjalistów od każdej
-                  naprawy. Zostaw to nam!
+                  Unsere Servicetechniker meistern jede Ihrer Herausforderungen
+                  SCANIA-Motor. Sie müssen nicht mehr für jeden einzelnen
+                  Spezialisten suchen Reparaturen. Überlassen Sie es uns!
                 </p>
               </div>
             </div>
           </div>
           <button className="px-5 py-3 rounded-2xl text-white bold bg-[#031124] w-[200px]  hover:scale-105 transition-transform duration-200 ease-in-out">
-            <a href="/kontakt">Przejdz do kontaktu</a>
+            <a href="/kontakt">Gehen Sie zu Kontakt</a>
           </button>
         </div>
       </VisibilitySensor>

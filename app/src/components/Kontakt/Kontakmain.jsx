@@ -85,12 +85,12 @@ const Kontakmain = () => {
               type="submit"
               className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600"
             >
-              Send
+              Schicken
             </button>
 
             {isSuccess && (
               <p className="text-green-500 font-semibold mt-2">
-                Your message was sent successfully!
+                Ihre Nachricht wurde erfolgreich gesendet!
               </p>
             )}
           </form>
