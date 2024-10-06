@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-const apiUrl = "https://bhkwtomasz-3hzw.vercel.app";
+const apiUrl = "https://bhkwtomasz-backend.onrender.com";
 
 const app = express();
 
