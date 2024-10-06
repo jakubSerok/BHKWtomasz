@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 const Profile = () => {
   const [user, setUser] = useState({
     name: "",
@@ -18,7 +18,7 @@ const Profile = () => {
       return;
     }
 
-    fetch("http://localhost:3001/profile", {
+    fetch(`${apiUrl}/profile`, {
       method: "GET",
       headers: {
         "auth-token": token,
@@ -57,7 +57,7 @@ const Profile = () => {
       return;
     }
 
-    fetch("http://localhost:3001/profile", {
+    fetch(`${apiUrl}/profile`, {
       method: "POST",
       headers: {
         "auth-token": token,
