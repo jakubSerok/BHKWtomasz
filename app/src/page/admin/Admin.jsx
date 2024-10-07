@@ -6,6 +6,7 @@ import ListProduct from "../../components/Admin/ListProduct";
 import AddBlog from "../../components/Admin/AddBlog";
 import ListBlog from "../../components/Admin/ListBlog";
 import AdminPanel from "../../components/Admin/AdminPanel";
+import ListOrder from "../../components/Admin/ListOrder";
 
 const Admin = () => {
   return (
@@ -18,6 +19,7 @@ const Admin = () => {
           <Route path="addblog" element={<AddBlog />} />
           <Route path="listblog" element={<ListBlog />} />
           <Route path="dashboard" element={<AdminPanel />} />
+          <Route path="listorder" element={<ListOrder />} />
         </Routes>
       </div>
     </div>

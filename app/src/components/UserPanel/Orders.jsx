@@ -1,64 +1,57 @@
-import React, { useState, useEffect } from "react";
-
-const Order = () => {
+import React, { useEffect, useState } from "react";
+const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
+const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch("/myorders", {
-          method: "GET",
-          headers: {
-            "auth-token": localStorage.getItem("token"),
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await response.json();
-        setOrders(data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-
-    fetchOrders();
+    fetch(`${apiUrl}/myorders`, {
+      method: "GET",
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"), // Assuming token is in localStorage
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setOrders(data))
+      .catch((error) => console.error("Error fetching orders:", error));
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Meine Bestellungen</h1>
-      {orders.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {orders.map((order) => (
-            <div key={order.id} className="border rounded-lg p-4 shadow-md">
+      <div className="grid grid-cols-1 gap-4">
+        {orders.length === 0 ? (
+          <p>Keine Bestellungen gefunden.</p>
+        ) : (
+          orders.map((order) => (
+            <div key={order.id} className="bg-white shadow-md rounded-lg p-4">
               <h2 className="text-xl font-semibold mb-2">
-                Bestellungen #{order.id}
+                Bestellung #{order.id} - {order.status}
               </h2>
-              <p className="text-sm mb-1">
-                <strong>Status:</strong> {order.status}
+              <p>Gesamt: €{order.total}</p>
+
+              {/* Display each product's title, price, and quantity */}
+              <div>
+                <h3 className="font-semibold">Produkte:</h3>
+                <ul className="list-disc list-inside">
+                  {order.products.map((product, index) => (
+                    <li key={index}>
+                      <p>Titel: {product.title}</p>
+                      <p>Preis: €{product.price}</p>
+                      <p>Menge: {product.quantity}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="mt-2">
+                Datum: {new Date(order.date).toLocaleDateString()}
               </p>
-              <p className="text-sm mb-1">
-                <strong>Date:</strong>{" "}
-                {new Date(order.date).toLocaleDateString()}
-              </p>
-              <p className="text-sm mb-2">
-                <strong>Total:</strong> ${order.total}
-              </p>
-              <h3 className="font-medium">Produkte: </h3>
-              <ul className="list-disc list-inside">
-                {order.products.map((product, index) => (
-                  <li key={index}>
-                    {product.name} - {product.quantity} pcs
-                  </li>
-                ))}
-              </ul>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>Sie haben noch keine Bestellungen.</p>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 };
 
-export default Order;
+export default Orders;

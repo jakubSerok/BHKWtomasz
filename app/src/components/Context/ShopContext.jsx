@@ -101,6 +101,28 @@ const ShopContextProvider = (props) => {
     const blog = all_blogs.find((b) => b.id === blogId);
     setCurrentBlog(blog);
   };
+  const clearCart = async () => {
+    try {
+      const token = localStorage.getItem("auth-token");
+      const response = await fetch(`${apiUrl}/clearcart`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": token, // Include the authentication token in the headers
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        console.log("Cart cleared successfully");
+      } else {
+        console.error("Failed to clear cart:", data.message);
+      }
+    } catch (error) {
+      console.error("Error clearing cart:", error.message);
+    }
+  };
 
   const contextValue = {
     all_product,
@@ -109,6 +131,7 @@ const ShopContextProvider = (props) => {
     removeFromCart,
     getTotalCartAmount,
     getTotalCartItems,
+    clearCart,
     all_blogs,
     currentBlog,
     fetchBlogById,

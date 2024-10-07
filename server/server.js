@@ -598,7 +598,8 @@ const Order = mongoose.model("Order", {
 // Endpoint for adding an order
 // Endpoint for adding an order
 // Creating Endpoint for adding an order
-app.post("/addorder", async (req, res) => {
+// Endpoint for adding an order
+app.post("/addorder", fetchUser, async (req, res) => {
   let orders = await Order.find({});
   let id;
 
@@ -630,11 +631,32 @@ app.post("/addorder", async (req, res) => {
     status: req.body.status,
   });
 
-  await order.save();
-  res.json({
-    success: true,
-    order: order,
-  });
+  try {
+    await order.save();
+    // Reduce product quantity after successful order
+    for (let i = 0; i < req.body.products.length; i++) {
+      const product = req.body.products[i];
+      const productId = product.id;
+      const quantity = product.quantity;
+      // Update the product quantity in the database
+      const productData = await Product.findOneAndUpdate(
+        { id: productId },
+        { $inc: { stock: -quantity } }
+      );
+      if (!productData) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Product not found" });
+      }
+    }
+    res.json({
+      success: true,
+      order: order,
+    });
+  } catch (error) {
+    console.error("Error adding order:", error);
+    res.status(500).json({ success: false, message: "Failed to add order" });
+  }
 });
 // Endpoint for getting all orders
 app.get("/allorders", fetchUser, isAdmin, async (req, res) => {
@@ -714,6 +736,22 @@ app.get("/stats", fetchUser, isAdmin, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+app.post("/clearcart", fetchUser, async (req, res) => {
+  try {
+    let userData = await Users.findOne({ _id: req.user.id });
+    for (let i = 0; i < 300; i++) {
+      userData.cartData[i] = 0;
+    }
+    await Users.findOneAndUpdate(
+      { _id: req.user.id },
+      { cartData: userData.cartData }
+    );
+    res.json({ success: true, message: "Cart cleared successfully" });
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).json({ success: false, message: "Failed to clear cart" });
   }
 });
 

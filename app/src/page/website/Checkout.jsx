@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { ShopContext } from "../../components/Context/ShopContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe("pk_test_your_public_key_here"); // Your Stripe public key
 const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const Checkout = () => {
+  const navigate = useNavigate();
+  const { getTotalCartAmount, all_product, cartItems, clearCart } =
+    useContext(ShopContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,10 +23,25 @@ const Checkout = () => {
     phone: "",
     email: "",
     products: [], // Products to be purchased
-    total: 0, // Total price
+    total: getTotalCartAmount(), // Total price
     paymentMethod: "stripe", // Default payment method
   });
+  useEffect(() => {
+    const products = all_product
+      .filter((product) => cartItems[product.id] > 0)
+      .map((product) => ({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: cartItems[product.id],
+      }));
 
+    setFormData((prev) => ({
+      ...prev,
+      products, // Update the products array in formData
+      total: getTotalCartAmount(), // Update total price if necessary
+    }));
+  }, [all_product, cartItems, getTotalCartAmount]);
   // Handles input changes for the form
   const handleChange = (e) => {
     setFormData({
@@ -38,11 +58,63 @@ const Checkout = () => {
     });
   };
 
+  const handleOrderSubmit = async () => {
+    try {
+      console.log("Submitting order...");
+      const token = localStorage.getItem("auth-token");
+      console.log("Token:", token);
+      // Submit the order details
+      const addOrderResponse = await fetch(`${apiUrl}/addorder`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": token, // Include the authentication token in the headers
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          companyName: formData.companyName, // Optional
+          numerPodatkowy: formData.numerPodatkowy, // Optional
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          postalCode: formData.postalCode,
+          country: formData.country,
+          phone: formData.phone,
+          email: formData.email,
+          products: formData.products, // Products in the order
+          total: formData.total, // Total price
+          paymentMethod: formData.paymentMethod, // Payment method
+        }),
+      });
+
+      console.log("Order response:", addOrderResponse);
+      const addOrderData = await addOrderResponse.json();
+
+      if (addOrderResponse.ok && addOrderData.success) {
+        console.log("Order placed successfully");
+
+        clearCart(); // Clear the cart
+        console.log("Navigating to /profile/orders");
+        navigate("/profile/orders");
+        console.log("Navigation complete");
+      } else {
+        console.log("Failed to place order");
+        alert(
+          "Failed to place order: " + (addOrderData.message || "Unknown error")
+        );
+      }
+    } catch (error) {
+      console.error("Error placing order:", error.message);
+      alert("An error occurred while placing the order");
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Checkout</h2>
-        <form className="space-y-4">
+        <form onSubmit={handleOrderSubmit} className="space-y-4">
           {/* Input fields for personal details */}
           <div>
             <label className="block text-gray-700">First Name</label>
