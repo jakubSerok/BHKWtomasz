@@ -7,6 +7,8 @@ const AllProducts = () => {
   const [displayedProducts, setDisplayedProducts] = useState([]); // for filtered and sorted products
   const [sortOption, setSortOption] = useState("priceAsc"); // default sort option
   const [searchQuery, setSearchQuery] = useState(""); // state for search input
+  const [currentPage, setCurrentPage] = useState(1); // state for current page
+  const [productsPerPage, setProductsPerPage] = useState(10); // state for products per page
 
   useEffect(() => {
     fetch(`${apiUrl}/allproducts`)
@@ -14,11 +16,13 @@ const AllProducts = () => {
       .then((data) => {
         const sortedData = sortProducts(data, sortOption);
         setAllProducts(sortedData);
-        setDisplayedProducts(sortedData);
+        setDisplayedProducts(
+          getPaginatedProducts(sortedData, currentPage, productsPerPage)
+        );
       })
       .catch((error) => console.error("Error:", error));
-  }, [sortOption]);
-  console.log("API URL:", apiUrl);
+  }, [sortOption, currentPage]);
+
   const sortProducts = (products, option) => {
     if (option === "priceAsc") {
       return products.sort((a, b) => a.price - b.price);
@@ -31,6 +35,12 @@ const AllProducts = () => {
     }
   };
 
+  const getPaginatedProducts = (products, currentPage, productsPerPage) => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    return products.slice(startIndex, endIndex);
+  };
+
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
@@ -40,7 +50,13 @@ const AllProducts = () => {
     const filteredProducts = allProducts.filter((product) =>
       product.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setDisplayedProducts(filteredProducts);
+    setDisplayedProducts(
+      getPaginatedProducts(filteredProducts, currentPage, productsPerPage)
+    );
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -86,6 +102,23 @@ const AllProducts = () => {
             productCode={product.productCode}
           />
         ))}
+      </div>
+      <div className="flex justify-center mt-10">
+        {[...Array(Math.ceil(allProducts.length / productsPerPage))].map(
+          (_, index) => (
+            <button
+              key={index}
+              className={`px-4 py-2 mx-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   );

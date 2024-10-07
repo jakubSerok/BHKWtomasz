@@ -4,6 +4,7 @@ const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
+  const [displayedProducts, setDisplayedProducts] = useState([]); // for paginated products
   const [editingProduct, setEditingProduct] = useState(null); // To track the product being edited
   const [editForm, setEditForm] = useState({
     title: "",
@@ -13,6 +14,8 @@ const ListProduct = () => {
     description: "",
     productCode: "",
   });
+  const [currentPage, setCurrentPage] = useState(1); // state for current page
+  const [productsPerPage, setProductsPerPage] = useState(10); // state for products per page
 
   // Fetch product data
   const fetchInfo = async () => {
@@ -21,6 +24,9 @@ const ListProduct = () => {
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setAllProducts(data);
+      setDisplayedProducts(
+        getPaginatedProducts(data, currentPage, productsPerPage)
+      );
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
@@ -29,7 +35,7 @@ const ListProduct = () => {
   // Fetch products on component mount
   useEffect(() => {
     fetchInfo();
-  }, []);
+  }, [currentPage]);
 
   // Remove a product
   const removeProduct = async (id) => {
@@ -88,6 +94,16 @@ const ListProduct = () => {
     }
   };
 
+  const getPaginatedProducts = (products, currentPage, productsPerPage) => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    return products.slice(startIndex, endIndex);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="flex flex-col items-center w-full h-[740px] py-[10px] px-[50px] m-[30px] rounded-md bg-white">
       <h1>All Products List</h1>
@@ -102,7 +118,7 @@ const ListProduct = () => {
       </div>
       <div className="w-full overflow-y-auto">
         <hr />
-        {allproducts.map((product) => (
+        {displayedProducts.map((product) => (
           <React.Fragment key={product.id}>
             <div className="grid grid-cols-7 gap-[10px] w-full items-center">
               <img
@@ -115,7 +131,7 @@ const ListProduct = () => {
               <p>{product.stock}</p>
               <p>{product.description}</p>
               <img
-                src={cross_icon} // Pencil icon for editing
+                src={cross_icon} // P encil icon for editing
                 onClick={() => openEditForm(product)}
                 alt="Edit product"
                 className="m-auto cursor-pointer"
@@ -208,6 +224,23 @@ const ListProduct = () => {
             )}
           </React.Fragment>
         ))}
+      </div>
+      <div className="flex justify-center mt-10">
+        {[...Array(Math.ceil(allproducts.length / productsPerPage))].map(
+          (_, index) => (
+            <button
+              key={index}
+              className={`px-4 py-2 mx-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   );

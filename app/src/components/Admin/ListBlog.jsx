@@ -4,12 +4,15 @@ const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListBlog = () => {
   const [allBlogs, setAllBlogs] = useState([]);
+  const [displayedBlogs, setDisplayedBlogs] = useState([]); // for paginated blogs
   const [editingBlog, setEditingBlog] = useState(null); // To track the blog being edited
   const [editForm, setEditForm] = useState({
     title: "",
     description: "",
     images: [],
   });
+  const [currentPage, setCurrentPage] = useState(1); // state for current page
+  const [blogsPerPage, setBlogsPerPage] = useState(5); // state for blogs per page
 
   // Fetch blog data
   const fetchInfo = async () => {
@@ -18,6 +21,7 @@ const ListBlog = () => {
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setAllBlogs(data);
+      setDisplayedBlogs(getPaginatedBlogs(data, currentPage, blogsPerPage));
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
     }
@@ -26,7 +30,7 @@ const ListBlog = () => {
   // Fetch blogs on component mount
   useEffect(() => {
     fetchInfo();
-  }, []);
+  }, [currentPage]);
 
   // Remove a blog
   const removeBlog = async (id) => {
@@ -82,6 +86,16 @@ const ListBlog = () => {
     }
   };
 
+  const getPaginatedBlogs = (blogs, currentPage, blogsPerPage) => {
+    const startIndex = (currentPage - 1) * blogsPerPage;
+    const endIndex = startIndex + blogsPerPage;
+    return blogs.slice(startIndex, endIndex);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="flex flex-col items-center w-full h-[740px] py-[10px] px-[50px] m-[30px] rounded-md bg-white">
       <h1>All Blog List</h1>
@@ -94,7 +108,7 @@ const ListBlog = () => {
       </div>
       <div className="w-full overflow-y-auto">
         <hr />
-        {allBlogs.map((blog) => (
+        {displayedBlogs.map((blog) => (
           <React.Fragment key={blog.id}>
             <div className="grid grid-cols-5 gap-[10px] w-full items-center">
               <img
@@ -156,6 +170,23 @@ const ListBlog = () => {
             )}
           </React.Fragment>
         ))}
+      </div>
+      <div className="flex justify-center mt-10">
+        {[...Array(Math.ceil(allBlogs.length / blogsPerPage))].map(
+          (_, index) => (
+            <button
+              key={index}
+              className={`px-4 py-2 mx-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
