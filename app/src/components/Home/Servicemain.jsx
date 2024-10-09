@@ -26,13 +26,13 @@ const Servicemain = () => {
             werden beim Betrieb von BIO-Gasanlagen eingesetzt. Wir haben unseren
             eigenen Laden und professionelles Personal.
           </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-around w-full ">
+          <div className="flex flex-col lg:flex-row gap-4 justify-around w-full ">
             <div className="flex flex-col gap-5 items-center bg-white rounded-3xl p-4">
-              <LuCalendarClock size={100} />
+              <LuCalendarClock size={100} className="" />
               <p className="font-bold text-3xl">Website-Überwachung</p>
             </div>
             <div className="flex flex-col gap-5 items-center bg-white rounded-3xl p-4">
-              <HiOutlineWrenchScrewdriver size={100} />
+              <HiOutlineWrenchScrewdriver size={100} className="" />
               <p className="font-bold text-3xl">
                 Umfassender
                 <br />
@@ -40,7 +40,7 @@ const Servicemain = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5 items-center bg-white rounded-3xl p-4">
-              <img src={icon} className="w-[100px] h-[100px]" alt="" />
+              <img src={icon} className="h-[100px] " alt="" />
               <p className="font-bold text-3xl">
                 Zusammenfassung der Rentabilität
               </p>

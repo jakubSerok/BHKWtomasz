@@ -38,7 +38,7 @@ const OfertaMain = () => {
                 viele Stunden Ihr Motor bis zur nächsten Wartung noch arbeiten
                 kann.
               </p>
-              <button className="w-[100px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
+              <button className="w-[200px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
                 <a href="/kontakt"> Bestellung</a>
               </button>
             </div>
@@ -85,7 +85,7 @@ const OfertaMain = () => {
                 Erhalten Sie Ersatzteile zu den besten Preisen auf dem Markt,
                 mit Expresslieferung – minimieren Sie die Kosten!
               </p>
-              <button className="w-[100px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
+              <button className="w-[200px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
                 <a href="/shop">Shop</a>
               </button>
             </div>
@@ -104,7 +104,7 @@ const OfertaMain = () => {
                 stellt. Sie müssen nicht mehr nach Spezialisten für jede
                 Reparatur suchen. Überlassen Sie das uns!
               </p>
-              <button className="w-[150px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
+              <button className="w-[200px] bg-[#031124] uppercase px-4 py-2 text-white rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
                 <a href="tel:+49 01545 6532 789" className="">
                   Anrufen
                 </a>
