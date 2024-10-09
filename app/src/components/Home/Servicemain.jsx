@@ -19,16 +19,14 @@ const Servicemain = () => {
       <VisibilitySensor onChange={onChange}>
         <div className="flex flex-col justify-between gap-10 items-center px-10 py-5 text-center">
           <p className="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold">
-            Scania-Motorenservice
-            <br />
-            Biogas
+            BHKW Service SCANIA/MAN
           </p>
           <p className="text-md lg:text-xl xl:text-2xl">
             Wir bieten umfassende Wartungsdienstleistungen für SCANIA-Motoren
             werden beim Betrieb von BIO-Gasanlagen eingesetzt. Wir haben unseren
             eigenen Laden und professionelles Personal.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-around w-full ">
+          <div className="flex flex-col md:flex-row gap-4 justify-around w-full ">
             <div className="flex flex-col gap-5 items-center bg-white rounded-3xl p-4">
               <LuCalendarClock size={100} />
               <p className="font-bold text-3xl">Website-Überwachung</p>

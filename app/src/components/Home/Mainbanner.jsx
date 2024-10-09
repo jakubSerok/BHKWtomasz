@@ -13,7 +13,7 @@ const Mainbanner = () => {
       }}
     >
       <h1 className="uppercase font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        Service und Reparatur
+        BHKW Service, Wartung, Reparatur, Umbau
       </h1>
       <h2 className="uppercase text-xl md:text-2xl lg:text-3xl font-normal font-sans">
         Maximieren Sie Ihre Verfügbarkeit{" "}
