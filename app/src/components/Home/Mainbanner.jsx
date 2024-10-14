@@ -10,10 +10,10 @@ const Mainbanner = () => {
       }}
     >
       <div className="flex flex-col absolute top-5 right-5 text-center  ">
-        <h1 className=" uppercase font-bold text-8xl md:text-9xl tracking-wider">
+        <h1 className=" uppercase font-bold text-5xl md:text-9xl tracking-wider ">
           BHKW
         </h1>
-        <p className=" font-bold text-md md:text-lg lg:text-xl border-2 uppercase border-white ">
+        <p className=" font-bold text-[10px] md:text-lg lg:text-xl border-2 uppercase border-white ">
           SERVICE WARTUNG REPERATUR UMBAU
         </p>
       </div>
