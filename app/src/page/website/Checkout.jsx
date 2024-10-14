@@ -113,11 +113,11 @@ const Checkout = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Checkout</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Kasse</h2>
         <form onSubmit={handleOrderSubmit} className="space-y-4">
           {/* Input fields for personal details */}
           <div>
-            <label className="block text-gray-700">First Name</label>
+            <label className="block text-gray-700">Vorname</label>
             <input
               type="text"
               name="firstName"
@@ -128,7 +128,7 @@ const Checkout = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700">Last Name</label>
+            <label className="block text-gray-700">Nachname</label>
             <input
               type="text"
               name="lastName"
@@ -141,9 +141,7 @@ const Checkout = () => {
 
           {/* Optional fields for company name and numer podatkowy */}
           <div>
-            <label className="block text-gray-700">
-              Company Name (Optional)
-            </label>
+            <label className="block text-gray-700">Firmenname (optional)</label>
             <input
               type="text"
               name="companyName"
@@ -154,7 +152,7 @@ const Checkout = () => {
           </div>
           <div>
             <label className="block text-gray-700">
-              Numer Podatkowy (Optional)
+              Umsatzsteuer-Identifikationsnummer (optional)
             </label>
             <input
               type="text"
@@ -178,7 +176,7 @@ const Checkout = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700">City</label>
+            <label className="block text-gray-700">Stadt</label>
             <input
               type="text"
               name="city"
@@ -190,7 +188,7 @@ const Checkout = () => {
           </div>
           <div className="flex space-x-4">
             <div className="w-1/2">
-              <label className="block text-gray-700">State</label>
+              <label className="block text-gray-700">Land</label>
               <input
                 type="text"
                 name="state"
@@ -201,7 +199,7 @@ const Checkout = () => {
               />
             </div>
             <div className="w-1/2">
-              <label className="block text-gray-700">Postal Code</label>
+              <label className="block text-gray-700">Postleitzahl</label>
               <input
                 type="text"
                 name="postalCode"
@@ -248,9 +246,9 @@ const Checkout = () => {
 
           {/* Payment Method Selection */}
           <div>
-            <label className="block text-gray-700">Payment Method</label>
+            <label className="block text-gray-700">Zahlungsmethode</label>
             <div className="flex items-center space-x-4">
-              <label className="inline-flex items-center">
+              {/*<label className="inline-flex items-center">
                 <input
                   type="radio"
                   name="paymentMethod"
@@ -260,7 +258,7 @@ const Checkout = () => {
                   className="form-radio"
                 />
                 <span className="ml-2">Stripe</span>
-              </label>
+              </label>*/}
               <label className="inline-flex items-center">
                 <input
                   type="radio"
@@ -270,7 +268,7 @@ const Checkout = () => {
                   onChange={handlePaymentMethodChange}
                   className="form-radio"
                 />
-                <span className="ml-2">Cash on Delivery (COD)</span>
+                <span className="ml-2">LIEFERSCHEIN</span>
               </label>
             </div>
           </div>
@@ -278,7 +276,7 @@ const Checkout = () => {
           {/* Display Total */}
           <div>
             <label className="block text-gray-700">
-              Total: ${formData.total}
+              Total: €{formData.total}
             </label>
           </div>
 
@@ -287,7 +285,7 @@ const Checkout = () => {
             type="submit"
             className="w-full bg-blue-500 text-white rounded-lg px-3 py-2 mt-3 hover:bg-blue-700"
           >
-            Place Order
+            Bestellung aufgeben
           </button>
         </form>
       </div>

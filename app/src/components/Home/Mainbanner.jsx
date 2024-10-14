@@ -4,16 +4,21 @@ import bg from "../../assets/baner.png";
 const Mainbanner = () => {
   return (
     <div
-      className="w-full h-[500px] flex flex-col justify-end px-5 pb-4 text-white gap-4 bg-cover md:bg-center bg-left"
+      className="relative w-full h-[500px] text-white bg-cover md:bg-center bg-left"
       style={{
         backgroundImage: `url(${bg})`,
       }}
     >
-      <h1 className="uppercase font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        BHKW Service, Wartung, Reparatur, Umbau
-      </h1>
-      <h2 className="uppercase text-xl md:text-2xl lg:text-3xl font-normal font-sans">
-        Maximieren Sie Ihre Verfügbarkeit{" "}
+      <div className="flex flex-col absolute top-5 right-5 text-center  ">
+        <h1 className=" uppercase font-bold text-8xl md:text-9xl tracking-wider">
+          BHKW
+        </h1>
+        <p className=" font-bold text-md md:text-lg lg:text-xl border-2 uppercase border-white ">
+          SERVICE WARTUNG REPERATUR UMBAU
+        </p>
+      </div>
+      <h2 className="absolute bottom-5 right-5 uppercase text-xl md:text-2xl lg:text-3xl font-normal font-sans">
+        Maximieren Sie Ihre Verfügbarkeit
       </h2>
     </div>
   );
