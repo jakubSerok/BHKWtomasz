@@ -4,16 +4,16 @@ import bg from "../../assets/baner.png";
 const Mainbanner = () => {
   return (
     <div
-      className="relative w-full h-[500px] text-white bg-cover md:bg-center bg-left"
+      className="relative w-full h-[500px] text-white  bg-cover md:bg-center bg-left"
       style={{
         backgroundImage: `url(${bg})`,
       }}
     >
-      <div className="flex flex-col absolute top-5 right-5 text-center  ">
-        <h1 className=" uppercase font-bold text-5xl md:text-9xl tracking-wider ">
+      <div className="flex flex-col absolute top-5 right-5 text-center">
+        <h1 className=" uppercase font-bold text-6xl md:text-9xl tracking-wider">
           BHKW
         </h1>
-        <p className=" font-bold text-[10px] md:text-lg lg:text-xl border-2 uppercase border-white ">
+        <p className=" font-bold text-[11px] md:text-lg lg:text-xl border-2 uppercase border-white md:absolute md:mt-[100px]">
           SERVICE WARTUNG REPERATUR UMBAU
         </p>
       </div>
