@@ -8,7 +8,7 @@ const Footer = () => {
           <h1 className="mb-4 font-semibold text-lg">Kontaktdaten</h1>
           <ul className="space-y-2">
             <li>NIP: DE845645213</li>
-            <li>Address: Christopf Bernhard Strasse 17, 49393 Lohne</li>
+            <li>Address: Hopener Straße 5, 49393 Lohne</li>
             <li>
               Email:
               <a href="mailto:info@scania-bhkw-ersatzteile.de" className="px-1">
@@ -17,8 +17,8 @@ const Footer = () => {
             </li>
             <li>
               Tel:
-              <a href="tel:+49 01545 6532 789" className="px-1">
-                +49 01545 6532 789
+              <a href="tel:+49 152 2755 1845" className="px-1">
+                +49 152 2755 1845
               </a>
             </li>
           </ul>
@@ -27,7 +27,7 @@ const Footer = () => {
           <h3 className="mb-4 font-semibold text-lg">Links</h3>
           <ul className="flex flex-col justify-between  gap-2">
             <li className="hover:scale-105 transition-transform duration-200 ease-in-out">
-              <a href="/shop">Speichern</a>
+              <a href="/shop">SHOP</a>
             </li>
             <li className="hover:scale-105 transition-transform duration-200 ease-in-out">
               <a href="/">Home</a>

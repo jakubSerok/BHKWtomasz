@@ -37,13 +37,13 @@ const Kontakmain = () => {
           <img src={img} alt="Kontakt Image" className="w-[200px]" />
           <p className="text-xl font-bold">BHKW Anlagenservice</p>
           <ul className="list-disc text-xl font-semibold ">
-            <li>Christopf Bernhard Strasse 17</li>
+            <li>Hopener Straße 5</li>
             <li>49393 Lohne</li>
             <li>Deutschland</li>
             <li>
               Telefon:
-              <a href="tel:+49 01545 6532 789" className="ml-1">
-                +49 (0) 1545 6532 789
+              <a href="tel:+49 152 2755 1845" className="ml-1">
+                +49 152 2755 1845
               </a>
             </li>
             <li>

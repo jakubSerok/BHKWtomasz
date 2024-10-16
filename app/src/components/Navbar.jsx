@@ -33,7 +33,7 @@ const Navbar = () => {
               isActive("/shop") ? "text-orange-500" : "hover:text-orange-500"
             }`}
           >
-            <a href="/shop">Speichren</a>
+            <a href="/shop">SHOP</a>
           </li>
           <li
             className={`lg:text-[20px] text-black font-extrabold uppercase hover:scale-105 transition-transform duration-200 ease-in-out ${
@@ -114,7 +114,7 @@ const Navbar = () => {
               } hover:scale-105 transition-transform duration-200 ease-in-out`}
             >
               <a href="/shop" className="w-full block py-2">
-                SPEICHERN
+                SHOP
               </a>
             </li>
             <li
