@@ -1,18 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import bg1 from "../../assets/1.png";
-import bg2 from "../../assets/2.png";
-import bg3 from "../../assets/3.png";
+import bg2 from "../../assets/3.png";
+import bg3 from "../../assets/2.png";
 const categories = [
   {
-    name: "MAN",
+    name: "SCANIA 12",
     image: bg1, // Replace with the actual image path
-    link: "/products/man", // Update with the correct route for MAN category
+    link: "/products/scania12", // Update with the correct route for MAN category
   },
   {
-    name: "SCANIA 12",
+    name: "MAN",
     image: bg2, // Replace with the actual image path
-    link: "/products/scania12", // Update with the correct route for SCANIA 12 category
+    link: "/products/man", // Update with the correct route for SCANIA 12 category
   },
   {
     name: "SCANIA 13",
@@ -41,7 +41,7 @@ const CategoryDisplay = () => {
             <img
               src={category.image}
               alt={category.name}
-              className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+              className="w-full h-48  rounded-lg hover:scale-105 transition-transform duration-300"
             />
             <h2 className="mt-4 text-lg font-bold text-gray-800">
               {category.name}
