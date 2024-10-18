@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-const apiUrl = "https://bhkwtomasz-backend.onrender.com";
+const apiUrl = "https://bhkwtomasz-backend.onrender.comz";
 
 const app = express();
 
@@ -80,6 +80,7 @@ app.post("/upload/blog", upload.single("blogImage"), (req, res) => {
 
 //Schema for Creating Products
 // Schema for Creating Products
+// Schema for Creating Products
 const Product = mongoose.model("Product", {
   id: {
     type: Number,
@@ -114,12 +115,17 @@ const Product = mongoose.model("Product", {
     type: String,
     required: true,
   },
+  category: {
+    type: String, // You can change this to Array if you want multiple categories
+    required: true, // Set to true if category is mandatory
+  },
   date: {
     type: Date,
     default: Date.now,
   },
 });
 
+// Creating Endpoint for adding product
 // Creating Endpoint for adding product
 app.post("/addproduct", async (req, res) => {
   let products = await Product.find({});
@@ -141,6 +147,7 @@ app.post("/addproduct", async (req, res) => {
     available: req.body.available,
     description: req.body.description,
     productCode: req.body.productCode,
+    category: req.body.category, // Add category here
   });
   await product.save();
   res.json({
@@ -159,6 +166,7 @@ app.post("/removeproduct", async (req, res) => {
 });
 
 // Creating API for editing a product with partial updates
+// Creating API for editing a product with partial updates
 app.post("/editproduct", async (req, res) => {
   try {
     const {
@@ -170,6 +178,7 @@ app.post("/editproduct", async (req, res) => {
       available,
       description,
       productCode,
+      category, // Include category
     } = req.body;
 
     // Create an update object only with fields that are present in the request body
@@ -178,9 +187,10 @@ app.post("/editproduct", async (req, res) => {
     if (images) updateFields.images = images;
     if (price) updateFields.price = price;
     if (stock) updateFields.stock = stock;
-    if (available !== undefined) updateFields.available = available; // Check for undefined because 'false' is a valid value
+    if (available !== undefined) updateFields.available = available;
     if (description) updateFields.description = description;
     if (productCode) updateFields.productCode = productCode;
+    if (category) updateFields.category = category; // Update category if present
 
     // Check if there's something to update
     if (Object.keys(updateFields).length === 0) {
@@ -211,7 +221,6 @@ app.post("/editproduct", async (req, res) => {
     res.status(500).json({ success: false, errors: "Server error" });
   }
 });
-
 // Creating API for getting all products
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});

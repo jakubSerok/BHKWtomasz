@@ -1,10 +1,10 @@
 import React from "react";
-import AllProducts from "../../components/Products/AllProducts";
+import CategoryDisplay from "../../components/Products/CategoryDisplay";
 
 const Shop = () => {
   return (
     <div>
-      <AllProducts />
+      <CategoryDisplay />
     </div>
   );
 };

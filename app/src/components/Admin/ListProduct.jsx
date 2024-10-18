@@ -13,6 +13,7 @@ const ListProduct = () => {
     available: true,
     description: "",
     productCode: "",
+    category: "",
   });
   const [currentPage, setCurrentPage] = useState(1); // state for current page
   const [productsPerPage, setProductsPerPage] = useState(10); // state for products per page
@@ -64,6 +65,7 @@ const ListProduct = () => {
       available: product.available,
       description: product.description,
       productCode: product.productCode,
+      category: product.category,
     });
   };
 
@@ -107,12 +109,13 @@ const ListProduct = () => {
   return (
     <div className="flex flex-col items-center w-full h-[740px] py-[10px] px-[50px] m-[30px] rounded-md bg-white">
       <h1>All Products List</h1>
-      <div className="grid grid-cols-7 gap-[10px] w-full py-[20px] text-[#454545] text-[15px] font-bold">
+      <div className="grid grid-cols-8 gap-[10px] w-full py-[20px] text-[#454545] text-[15px] font-bold">
         <p>Product</p>
         <p>Title</p>
         <p>Price</p>
         <p>Stock</p>
         <p>Description</p>
+        <p>Category</p>
         <p>Edit</p>
         <p>Remove</p>
       </div>
@@ -120,7 +123,7 @@ const ListProduct = () => {
         <hr />
         {displayedProducts.map((product) => (
           <React.Fragment key={product.id}>
-            <div className="grid grid-cols-7 gap-[10px] w-full items-center">
+            <div className="grid grid-cols-8 gap-[10px] w-full items-center">
               <img
                 src={product.images[0]}
                 alt={`${product.title} image`}
@@ -130,6 +133,7 @@ const ListProduct = () => {
               <p>${product.price}</p>
               <p>{product.stock}</p>
               <p>{product.description}</p>
+              <p>{product.category}</p>
               <img
                 src={cross_icon} // P encil icon for editing
                 onClick={() => openEditForm(product)}
@@ -187,6 +191,15 @@ const ListProduct = () => {
                     <textarea
                       name="description"
                       value={editForm.description}
+                      onChange={handleChange}
+                      className="p-2 border border-gray-300 rounded-md"
+                    />
+                  </div>{" "}
+                  <div className="flex flex-col">
+                    <label>Category</label>
+                    <textarea
+                      name="category"
+                      value={editForm.category}
                       onChange={handleChange}
                       className="p-2 border border-gray-300 rounded-md"
                     />

@@ -11,6 +11,7 @@ const AddProduct = () => {
     available: true,
     description: "",
     productCode: "",
+    category: "", // Added category field
     images: [],
   });
 
@@ -54,6 +55,7 @@ const AddProduct = () => {
           available: productDetails.available,
           description: productDetails.description,
           productCode: productDetails.productCode,
+          category: productDetails.category, // Include category in the request
           images: [imageUrl], // Use the image URL here
         }),
       });
@@ -66,10 +68,9 @@ const AddProduct = () => {
         alert("Failed to add product");
       }
     } else {
-      alert("Failed to upload image");
+      alert("Image upload failed");
     }
   };
-
   return (
     <div className="box-border w-full max-w-[800px] px-[50px] py-[30px] my-[20px] mx-[30px] rounded-md bg-white">
       <div className="w-full text-[16px] text-[#7b7b7b]">
@@ -127,6 +128,19 @@ const AddProduct = () => {
           className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
         />
       </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Category</p>
+        <input
+          value={productDetails.category}
+          onChange={changeHandler}
+          type="text"
+          name="category"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+
+      {/* Image upload and Add button */}
       <div className="h-[120px] w-[120px] rounded-xl object-contain my-[10px]">
         <label htmlFor="file-input">
           <img src={image ? URL.createObjectURL(image) : upload_area} alt="" />
@@ -139,6 +153,7 @@ const AddProduct = () => {
           hidden
         />
       </div>
+
       <button
         onClick={() => {
           Add_Product();

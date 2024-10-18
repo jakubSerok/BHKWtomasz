@@ -24,6 +24,8 @@ import Blog from "./page/website/Blog";
 import Checkout from "./page/website/Checkout";
 import UserPanel from "./page/website/UserPanel"; // Import the UserPanel component
 import Order from "./components/CartItems/Order";
+import CategoryDisplay from "./components/Products/CategoryDisplay";
+import AllProducts from "./components/Products/AllProducts";
 
 function App() {
   const location = useLocation();
@@ -47,6 +49,19 @@ function App() {
         <Route path="/kontakt" element={<Kontakt />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/oferta" element={<Oferta />} />
+        <Route path="/category" element={<CategoryDisplay />} />
+        <Route
+          path="/products/scania13"
+          element={<AllProducts category={"scania13"} />}
+        />
+        <Route
+          path="/products/scania12"
+          element={<AllProducts category={"scania12"} />}
+        />
+        <Route
+          path="/products/man"
+          element={<AllProducts category={"man"} />}
+        />
         <Route path="/rozwiazania" element={<Rozwiazania />} />
         <Route path="/login" element={<Login />} />
         <Route path="/checkout" element={<Checkout />} />

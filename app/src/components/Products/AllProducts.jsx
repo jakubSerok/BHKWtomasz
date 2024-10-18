@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Item from "./Item";
 const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
-const AllProducts = () => {
+const AllProducts = ({ category }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]); // for filtered and sorted products
   const [sortOption, setSortOption] = useState("priceAsc"); // default sort option
@@ -15,13 +15,19 @@ const AllProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         const sortedData = sortProducts(data, sortOption);
-        setAllProducts(sortedData);
+
+        // Filter by category if provided
+        const filteredData = category
+          ? sortedData.filter((product) => product.category === category)
+          : sortedData;
+
+        setAllProducts(filteredData);
         setDisplayedProducts(
-          getPaginatedProducts(sortedData, currentPage, productsPerPage)
+          getPaginatedProducts(filteredData, currentPage, productsPerPage)
         );
       })
       .catch((error) => console.error("Error:", error));
-  }, [sortOption, currentPage]);
+  }, [sortOption, currentPage, category]);
 
   const sortProducts = (products, option) => {
     if (option === "priceAsc") {
@@ -57,37 +63,34 @@ const AllProducts = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    setDisplayedProducts(
+      getPaginatedProducts(allProducts, pageNumber, productsPerPage)
+    );
   };
 
   return (
-    <div className="p-10">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-        <h1 className="text-4xl font-bold text-center">ALLE PRODUKTE</h1>
-        <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
-          {/* Search by Name */}
-          <input
-            type="text"
-            className="border border-gray-300 p-2 rounded w-full md:w-auto"
-            placeholder="Search by name"
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-          {/* Sort Options */}
-          <select
-            className="border border-gray-300 p-2 rounded w-full md:w-auto"
-            value={sortOption}
-            onChange={handleSortChange}
-          >
-            <option value="priceAsc">
-              Sortieren nach Preis: Niedrig bis Hoch
-            </option>
-            <option value="priceDesc">
-              Sortieren nach Preis: Hoch nach Niedrig
-            </option>
-            <option value="nameAsc">Sortieren nach Name: A-Z</option>
-            <option value="nameDesc">Sortieren nach Name: Z-A</option>
-          </select>
-        </div>
+    <div className="container mx-auto px-4">
+      <h1 className="text-2xl font-bold mb-4">ALL PRODUCTS</h1>
+      <div className="flex justify-between mb-4">
+        {/* Search by Name */}
+        <input
+          type="text"
+          className="border border-gray-300 p-2 rounded w-full md:w-auto"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        {/* Sort Options */}
+        <select
+          className="border border-gray-300 p-2 rounded w-full md:w-auto"
+          value={sortOption}
+          onChange={handleSortChange}
+        >
+          <option value="priceAsc">Sort by Price: Low to High</option>
+          <option value="priceDesc">Sort by Price: High to Low</option>
+          <option value="nameAsc">Sort by Name: A-Z</option>
+          <option value="nameDesc">Sort by Name: Z-A</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {displayedProducts.map((product) => (
