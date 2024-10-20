@@ -37,7 +37,7 @@ const Item = (props) => {
         {/* Price, Cart Icon, and Add to Cart Button */}
         <div className="flex justify-between items-center mt-4">
           <div className="text-[#374151] text-[26px] font-bold">
-            ${props.price}
+            €{props.price}
           </div>
 
           <Link to="/cart" className="text-[#374151] text-[18px] font-bold">

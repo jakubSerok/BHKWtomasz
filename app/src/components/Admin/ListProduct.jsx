@@ -130,7 +130,7 @@ const ListProduct = () => {
                 className="h-[80px]"
               />
               <p>{product.title}</p>
-              <p>${product.price}</p>
+              <p>€{product.price}</p>
               <p>{product.stock}</p>
               <p>{product.description}</p>
               <p>{product.category}</p>

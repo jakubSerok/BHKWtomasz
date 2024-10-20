@@ -56,7 +56,7 @@ const CartItems = () => {
           <div>
             <div className="flex justify-between py-[15px]">
               <p>Zwischensumme</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>€{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="flex justify-between py-[15px]">
