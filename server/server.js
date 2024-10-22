@@ -114,6 +114,7 @@ const Product = mongoose.model("Product", {
   productCode: {
     type: String,
     required: true,
+    match: /^[A-Za-z0-9-]+$/,
   },
   category: {
     type: String, // You can change this to Array if you want multiple categories
