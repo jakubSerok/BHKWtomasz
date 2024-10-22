@@ -27,7 +27,7 @@ const ProductDisplay = (props) => {
               {product.title}
             </h1>
             <div className="flex gap-3 sm:gap-6 font-bold text-[18px] sm:text-[20px]">
-              <h2 className="text-red-500">Preis::</h2>
+              <h2 className="text-red-500">Preis für ein Stück :</h2>
               <p className="text-gray-800">€ {product.price}</p>
             </div>
           </div>

@@ -71,6 +71,14 @@ const AddProduct = () => {
       alert("Image upload failed");
     }
   };
+  const categories = [
+    { value: "man", label: "MAN" },
+    { value: "scania12", label: "Scania 12" },
+    { value: "scania13", label: "Scania 13" },
+
+    // Add more categories as needed
+  ];
+
   return (
     <div className="box-border w-full max-w-[800px] px-[50px] py-[30px] my-[20px] mx-[30px] rounded-md bg-white">
       <div className="w-full text-[16px] text-[#7b7b7b]">
@@ -130,14 +138,18 @@ const AddProduct = () => {
       </div>
       <div className="w-full text-[16px] text-[#7b7b7b]">
         <p>Category</p>
-        <input
+        <select
+          name="category"
           value={productDetails.category}
           onChange={changeHandler}
-          type="text"
-          name="category"
-          placeholder="Type here"
           className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
-        />
+        >
+          {categories.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Image upload and Add button */}
