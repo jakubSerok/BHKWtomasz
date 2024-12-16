@@ -25,19 +25,20 @@ const s3Client = new S3Client({
 // Allow all origins or specify the ones you need
 app.use(
   cors({
-    origin: "*", // Frontend URL
+    origin: "https://scania-bhkw-ersatzteile.de",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "auth-token"], // Include 'auth-token'
-    maxAge: 3600,
-    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+    credentials: true, // Set this to false if not sending cookies
   })
 );
+
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
 app.use(express.json());
 
 //Database Connection with MonoDB

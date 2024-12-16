@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 
 const Item = (props) => {
+  const { product } = props;
   const { addToCart } = useContext(ShopContext);
 
   return (
@@ -12,7 +13,7 @@ const Item = (props) => {
         <Link to={`/product/${props.id}`}>
           <img
             onClick={() => window.scrollTo(0, 0)}
-            src={props.images[0]}
+            src={product.images[0]}
             alt={props.name}
             className="h-[200px] object-cover w-full rounded-lg"
           />
