@@ -95,6 +95,7 @@ const AllProducts = ({ category }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {displayedProducts.map((product) => (
           <Item
+            product={product}
             key={product.id}
             id={product.id}
             title={product.title}

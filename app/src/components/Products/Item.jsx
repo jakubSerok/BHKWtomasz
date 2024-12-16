@@ -14,14 +14,14 @@ const Item = (props) => {
           <img
             onClick={() => window.scrollTo(0, 0)}
             src={product.images[0]}
-            alt={props.name}
+            alt={product.name}
             className="h-[200px] object-cover w-full rounded-lg"
           />
         </Link>
 
         {/* Product Title */}
         <p className="my-4 text-lg font-semibold text-gray-800">
-          {props.title}
+          {product.title}
         </p>
 
         {/* Stock Availability */}
@@ -31,14 +31,14 @@ const Item = (props) => {
               props.available ? "text-green-500" : "text-red-500"
             } text-md`}
           >
-            {props.available ? "In Stock" : "Out of Stock"}
+            {product.available ? "In Stock" : "Out of Stock"}
           </p>
         </div>
 
         {/* Price, Cart Icon, and Add to Cart Button */}
         <div className="flex justify-between items-center mt-4">
           <div className="text-[#374151] text-[26px] font-bold">
-            €{props.price}
+            €{product.price}
           </div>
 
           <Link to="/cart" className="text-[#374151] text-[18px] font-bold">
@@ -47,7 +47,7 @@ const Item = (props) => {
 
           <button
             className="bg-[#ff4141] text-white py-[5px] px-[10px] rounded-lg cursor-pointer hover:bg-red-600"
-            onClick={() => addToCart(props.id)}
+            onClick={() => addToCart(product.id)}
           >
             In den Warenkorb legen
           </button>
