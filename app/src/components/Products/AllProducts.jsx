@@ -98,7 +98,7 @@ const AllProducts = ({ category }) => {
             key={product.id}
             id={product.id}
             title={product.title}
-            images={product.images}
+            images={product.images[0]}
             price={product.price}
             stock={product.stock}
             available={product.available}

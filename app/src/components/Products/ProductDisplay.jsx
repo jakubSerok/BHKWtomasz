@@ -13,7 +13,7 @@ const ProductDisplay = (props) => {
         {/* Image Section */}
         <div className="flex justify-center">
           <img
-            src={product.images}
+            src={product.images[0]}
             alt={product.title}
             className="w-full h-auto sm:h-[500px] lg:w-[586px] lg:h-[700px] object-cover"
           />

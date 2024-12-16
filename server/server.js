@@ -1,3 +1,4 @@
+require("dotenv").config();
 const port = 3001;
 const stripe = require("stripe")("sk_test_7mJuPfZsBzc3JkrANrFrcDqC");
 const express = require("express");
@@ -8,8 +9,18 @@ const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const apiUrl = "https://bhkwtomasz-backend.onrender.com";
-
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const fs = require("fs");
 const app = express();
+
+// Initialize S3 client
+const s3Client = new S3Client({
+  region: "eu-north-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 // Allow all origins or specify the ones you need
 app.use(
@@ -38,7 +49,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
-// Image Storage Engine
+// Image   Engine
 console.log("API URL:", apiUrl);
 const storage = multer.diskStorage({
   destination: "./upload/images",
@@ -52,30 +63,74 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//Creating Upload Endpoin for images
-app.use("/images", express.static("upload/images"));
+app.post("/upload/product", upload.single("productImage"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: 0, message: "No file uploaded" });
+    }
 
-app.post("/upload/product", upload.single("productImage"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ success: 0, message: "No file uploaded" });
+    const fileContent = fs.readFileSync(req.file.path);
+    const fileName = `products/${Date.now()}-${req.file.originalname}`;
+
+    const uploadParams = {
+      Bucket: "bhkwscania", // Replace with your bucket name
+      Key: fileName,
+      Body: fileContent,
+      ContentType: req.file.mimetype,
+    };
+
+    const command = new PutObjectCommand(uploadParams);
+
+    await s3Client.send(command);
+
+    // Generate the URL for the uploaded file
+    const fileUrl = `https://${uploadParams.Bucket}.s3.eu-north-1.amazonaws.com/${fileName}`;
+
+    // Clean up local file
+    fs.unlinkSync(req.file.path);
+
+    res.json({
+      success: 1,
+      image_url: fileUrl,
+    });
+  } catch (error) {
+    console.error("Error uploading to S3:", error);
+    res.status(500).json({ success: 0, message: "Upload failed" });
   }
-
-  res.json({
-    success: 1,
-    image_url: `${apiUrl}/images/${req.file.filename}`,
-  });
 });
-
 // New Blog Image Upload Endpoint
-app.post("/upload/blog", upload.single("blogImage"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ success: 0, message: "No file uploaded" });
-  }
+app.post("/upload/blog", upload.single("blogImage"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: 0, message: "No file uploaded" });
+    }
 
-  res.json({
-    success: 1,
-    image_url: `${apiUrl}/images/${req.file.filename}`,
-  });
+    const fileContent = fs.readFileSync(req.file.path);
+    const fileName = `blogs/${Date.now()}-${req.file.originalname}`; // Zmieniona ścieżka
+
+    const uploadParams = {
+      Bucket: "bhkwscania", // Nazwa twojego bucketa
+      Key: fileName,
+      Body: fileContent,
+      ContentType: req.file.mimetype,
+    };
+
+    const command = new PutObjectCommand(uploadParams);
+
+    await s3Client.send(command);
+
+    const fileUrl = `https://${uploadParams.Bucket}.s3.eu-north-1.amazonaws.com/${fileName}`;
+
+    fs.unlinkSync(req.file.path); // Usuwa lokalny plik
+
+    res.json({
+      success: 1,
+      image_url: fileUrl,
+    });
+  } catch (error) {
+    console.error("Error uploading blog image to S3:", error);
+    res.status(500).json({ success: 0, message: "Upload failed" });
+  }
 });
 
 //Schema for Creating Products
