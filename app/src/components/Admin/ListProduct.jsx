@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cross_icon from "../../assets/admin/cross_icon.png";
+import upload_area from "../../assets/upload_area.svg";
 const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListProduct = () => {
@@ -102,13 +103,13 @@ const ListProduct = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          title: productDetails.title,
-          price: productDetails.price,
-          stock: productDetails.stock,
-          available: productDetails.available,
-          description: productDetails.description,
-          productCode: productDetails.productCode,
-          category: productDetails.category, // Include category in the request
+          title: editForm.title,
+          price: editForm.price,
+          stock: editForm.stock,
+          available: editForm.available,
+          description: editForm.description,
+          productCode: editForm.productCode,
+          category: editForm.category, // Include category in the request
           images: [imageUrl], // Use the image URL here
         }),
       });
