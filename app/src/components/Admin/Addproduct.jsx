@@ -3,7 +3,7 @@ import upload_area from "../../assets/upload_area.svg";
 const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const AddProduct = () => {
-  const [image, setImage] = useState(null); // Change initial state to null
+  const [image, setImage] = useState(false);
   const [productDetails, setProductDetails] = useState({
     title: "",
     price: "",
@@ -26,15 +26,12 @@ const AddProduct = () => {
   const Add_Product = async () => {
     console.log(productDetails);
 
-    let imageUrl = null; // Initialize imageUrl
-
-    // Check if an image is provided
+    let imageUrl = ""; // Initialize imageUrl as empty
     if (image) {
-      // Create form data for image upload
+      // If image is provided, upload it
       let formData = new FormData();
       formData.append("productImage", image);
 
-      // Upload the image and get the URL
       const uploadResponse = await fetch(`${apiUrl}/upload/product`, {
         method: "POST",
         body: formData,
@@ -42,31 +39,34 @@ const AddProduct = () => {
 
       const uploadData = await uploadResponse.json();
 
-      if (uploadData.success) {
-        imageUrl = uploadData.image_url; // Store the image URL temporarily
-      } else {
+      if (!uploadData.success) {
         alert("Image upload failed");
-        return; // Exit if image upload fails
+        return; // Exit the function if image upload fails
       }
+
+      imageUrl = uploadData.image_url; // Store uploaded image URL
     }
 
-    // Now submit the product details, including the image URL if available
+    // Prepare product data, conditionally including the images field
+    const productPayload = {
+      title: productDetails.title,
+      price: productDetails.price,
+      stock: productDetails.stock,
+      available: productDetails.available,
+      description: productDetails.description,
+      productCode: productDetails.productCode,
+      category: productDetails.category,
+      images: imageUrl ? [imageUrl] : [], // Include image URL if available
+    };
+
+    // Submit product details to the backend
     const addProductResponse = await fetch(`${apiUrl}/addproduct`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title: productDetails.title,
-        price: productDetails.price,
-        stock: productDetails.stock,
-        available: productDetails.available,
-        description: productDetails.description,
-        productCode: productDetails.productCode,
-        category: productDetails.category, // Include category in the request
-        images: imageUrl ? [imageUrl] : [], // Use the image URL if available
-      }),
+      body: JSON.stringify(productPayload),
     });
 
     const addProductData = await addProductResponse.json();
@@ -82,12 +82,12 @@ const AddProduct = () => {
     { value: "man", label: "MAN" },
     { value: "scania12", label: "Scania 12" },
     { value: "scania13", label: "Scania 13" },
+
     // Add more categories as needed
   ];
 
   return (
     <div className="box-border w-full max-w-[800px] px-[50px] py-[30px] my-[20px] mx-[30px] rounded-md bg-white">
-      {/* Other input fields remain unchanged */}
       <div className="w-full text-[16px] text-[#7b7b7b]">
         <p>Product Title</p>
         <input
@@ -99,7 +99,65 @@ const AddProduct = () => {
           className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
         />
       </div>
-      {/* Other input fields for price, stock, description, product code, and category remain unchanged */}
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Price</p>
+        <input
+          value={productDetails.price}
+          onChange={changeHandler}
+          type="text"
+          name="price"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Stock</p>
+        <input
+          value={productDetails.stock}
+          onChange={changeHandler}
+          type="text"
+          name="stock"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Description</p>
+        <textarea
+          value={productDetails.description}
+          onChange={changeHandler}
+          type="text"
+          name="description"
+          placeholder="Type here"
+          className="box-border w-full h-[100px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Product Code</p>
+        <input
+          value={productDetails.productCode}
+          onChange={changeHandler}
+          type="text"
+          name="productCode"
+          placeholder="Type here"
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        />
+      </div>
+      <div className="w-full text-[16px] text-[#7b7b7b]">
+        <p>Category</p>
+        <select
+          name="category"
+          value={productDetails.category}
+          onChange={changeHandler}
+          className="box-border w-full h-[50px] rounded pl-[15px] border-[#c3c3c3] border-[1px] text-[#7b7b7b7b] text-[14px]"
+        >
+          {categories.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Image upload and Add button */}
       <div className="h-[120px] w-[120px] rounded-xl object-contain my-[10px]">
@@ -116,8 +174,10 @@ const AddProduct = () => {
       </div>
 
       <button
-        onClick={Add_Product}
-        className="mt-[20px] w-[160px] h-[50px] rounded-md bg-[#6079ff] cursor-pointer text -white text-[16px] font-medium"
+        onClick={() => {
+          Add_Product();
+        }}
+        className="mt-[20px] w-[160px] h-[50px] rounded-md bg-[#6079ff] cursor-pointer text-white text-[16px] font-medium"
       >
         ADD
       </button>
