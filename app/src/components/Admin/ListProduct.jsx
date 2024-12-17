@@ -4,6 +4,7 @@ const apiUrl = process.env.REACT_APP_PUBLIC_API_URL;
 
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
+  const [image, setImage] = useState(false);
   const [displayedProducts, setDisplayedProducts] = useState([]); // for paginated products
   const [editingProduct, setEditingProduct] = useState(null); // To track the product being edited
   const [editForm, setEditForm] = useState({
@@ -14,9 +15,13 @@ const ListProduct = () => {
     description: "",
     productCode: "",
     category: "",
+    images: [],
   });
   const [currentPage, setCurrentPage] = useState(1); // state for current page
   const [productsPerPage, setProductsPerPage] = useState(10); // state for products per page
+  const imageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   // Fetch product data
   const fetchInfo = async () => {
@@ -59,6 +64,7 @@ const ListProduct = () => {
   const openEditForm = (product) => {
     setEditingProduct(product.id);
     setEditForm({
+      images: product.images[0],
       title: product.title,
       price: product.price,
       stock: product.stock,
@@ -77,6 +83,17 @@ const ListProduct = () => {
 
   // Submit the edited product details
   const handleSubmitEdit = async (e) => {
+    let formData = new FormData();
+    formData.append("productImage", image);
+
+    // Upload the image and get the URL
+    const uploadResponse = await fetch(`${apiUrl}/upload/product`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const uploadData = await uploadResponse.json();
+    const imageUrl = uploadData.image_url;
     e.preventDefault();
     try {
       const response = await fetch(`${apiUrl}/editproduct`, {
@@ -84,7 +101,16 @@ const ListProduct = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: editingProduct, ...editForm }),
+        body: JSON.stringify({
+          title: productDetails.title,
+          price: productDetails.price,
+          stock: productDetails.stock,
+          available: productDetails.available,
+          description: productDetails.description,
+          productCode: productDetails.productCode,
+          category: productDetails.category, // Include category in the request
+          images: [imageUrl], // Use the image URL here
+        }),
       });
       const result = await response.json();
       if (result.success) {
@@ -164,6 +190,21 @@ const ListProduct = () => {
                       value={editForm.title}
                       onChange={handleChange}
                       className="p-2 border border-gray-300 rounded-md"
+                    />
+                  </div>
+                  <div className="h-[120px] w-[120px] rounded-xl object-contain my-[10px]">
+                    <label htmlFor="file-input">
+                      <img
+                        src={image ? URL.createObjectURL(image) : upload_area}
+                        alt=""
+                      />
+                    </label>
+                    <input
+                      onChange={imageHandler}
+                      type="file"
+                      name="image"
+                      id="file-input"
+                      hidden
                     />
                   </div>
                   <div className="flex flex-col">

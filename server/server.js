@@ -149,7 +149,6 @@ const Product = mongoose.model("Product", {
   images: {
     type: Array,
     default: [],
-    required: true,
   },
   price: {
     type: Number,
