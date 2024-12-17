@@ -102,16 +102,7 @@ const ListProduct = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          title: editForm.title,
-          price: editForm.price,
-          stock: editForm.stock,
-          available: editForm.available,
-          description: editForm.description,
-          productCode: editForm.productCode,
-          category: editForm.category, // Include category in the request
-          images: [imageUrl], // Use the image URL here
-        }),
+        body: JSON.stringify({ id: editingProduct, ...editForm }),
       });
       const result = await response.json();
       if (result.success) {
