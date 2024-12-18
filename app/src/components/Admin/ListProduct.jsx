@@ -84,30 +84,52 @@ const ListProduct = () => {
 
   // Submit the edited product details
   const handleSubmitEdit = async (e) => {
-    let formData = new FormData();
-    formData.append("productImage", image);
-
-    // Upload the image and get the URL
-    const uploadResponse = await fetch(`${apiUrl}/upload/product`, {
-      method: "POST",
-      body: formData,
-    });
-
-    const uploadData = await uploadResponse.json();
-    const imageUrl = uploadData.image_url;
     e.preventDefault();
+
+    let imageUrl = editForm.images; // Default to existing image URL
+    if (image) {
+      // If a new image is provided, upload it
+      let formData = new FormData();
+      formData.append("productImage", image);
+
+      try {
+        const uploadResponse = await fetch(`${apiUrl}/upload/product`, {
+          method: "POST",
+          body: formData,
+        });
+
+        const uploadData = await uploadResponse.json();
+
+        if (!uploadData.success) {
+          alert("Image upload failed");
+          return; // Exit if image upload fails
+        }
+
+        imageUrl = uploadData.image_url; // Use the uploaded image URL
+      } catch (error) {
+        console.error("Image upload failed:", error);
+        return; // Exit on error
+      }
+    }
+
     try {
       const response = await fetch(`${apiUrl}/editproduct`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: editingProduct, ...editForm }),
+        body: JSON.stringify({
+          id: editingProduct,
+          ...editForm,
+          images: [imageUrl], // Update the images array with the new URL
+        }),
       });
+
       const result = await response.json();
       if (result.success) {
         fetchInfo(); // Refresh products after edit
         setEditingProduct(null); // Close the edit form
+        setImage(false); // Reset the image state
       }
     } catch (error) {
       console.error("Failed to edit product:", error);
